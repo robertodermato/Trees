@@ -107,13 +107,13 @@ public class GeneralTreeOfInteger {
             fila.enqueue(aux);
 
             while (fila.isEmpty() == false) {
-                aux = fila.head();
+                aux = fila.dequeue();
                 lista.add(aux.element);
 
-                for (int i = 0; i < fila.head().getSubtreesSize(); i++) {
+                for (int i = 0; i < aux.getSubtreesSize(); i++) {
                     fila.enqueue(aux.getSubtree(i));
                 }
-                fila.dequeue();
+
             }
         }
         return lista;
@@ -155,10 +155,19 @@ public class GeneralTreeOfInteger {
 
     // Retorna em que nível o elemento está
     public int level(Integer element) {
+        int level = 0;
 
-        // IMPLEMENTE ESTE METODO !!
-        return 0;
+        Node aux = searchNodeRef(element, root);
 
+        if (aux == null) {
+            return -1;
+        }
+
+        while (aux.father != null) {
+            aux = aux.father;
+            level++;
+        }
+        return level;
     }
 
     // Remove um galho da arvore

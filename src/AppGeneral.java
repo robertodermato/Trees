@@ -3,6 +3,7 @@ public class AppGeneral {
         public static void main(String[] args) {
 
             GeneralTreeOfInteger arv = new GeneralTreeOfInteger();
+
             arv.add(1, null);
             arv.add(2,1);
             arv.add(3,1);
@@ -18,5 +19,10 @@ public class AppGeneral {
 
             System.out.println("Caminhamento pós-fixado:");
             System.out.println(arv.positionsPos());
+
+            //Testando método level
+            System.out.println("Nível do elemento 6: " + arv.level(6));
+            System.out.println("Nível do elemento 1: " + arv.level(1));
+            System.out.println("Nível do elemento 8: " + arv.level(8));
         }
 }
