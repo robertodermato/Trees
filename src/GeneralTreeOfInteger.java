@@ -5,42 +5,45 @@ public class GeneralTreeOfInteger {
 
     // Classe interna Node
     private class Node {
+
         // Atributos da classe Node
         public Node father;
         public Integer element;
         public LinkedList<Node> subtrees;
+
         // Métodos da classe Node
         public Node(Integer element) {
             father = null;
             this.element = element;
             subtrees = new LinkedList<>();
         }
+
         private void addSubtree(Node n) {
             n.father = this;
             subtrees.add(n);
         }
+
         private boolean removeSubtree(Node n) {
             n.father = null;
             return subtrees.remove(n);
         }
+
         public Node getSubtree(int i) {
             if ((i < 0) || (i >= subtrees.size())) {
                 throw new IndexOutOfBoundsException();
             }
             return subtrees.get(i);
         }
+
         public int getSubtreesSize() {
             return subtrees.size();
         }
     }
 
 
-
     // Atributos da classe GeneralTreeOfInteger
     private Node root;
     private int count;
-
-
 
     // Metodos da classe GeneralTreeOfInteger
 
@@ -52,12 +55,11 @@ public class GeneralTreeOfInteger {
     private Node searchNodeRef(Integer elem, Node n) {
         Node aux = null;
 
-        if ( n != null ) {
-            if ( n.element.equals(elem)) { // "Visita a raiz" (todo nodo é raiz de uma subárvore)
+        if (n != null) {
+            if (n.element.equals(elem)) { // "Visita a raiz" (todo nodo é raiz de uma subárvore)
                 aux = n; // Achou o elemento e retorna referência para o nodo onde ele está armazenado
-            }
-            else { // "Visita subárvores"
-                for (int i=0; i<n.getSubtreesSize(); i++) {
+            } else { // "Visita subárvores"
+                for (int i = 0; i < n.getSubtreesSize(); i++) {
                     aux = searchNodeRef(elem, n.getSubtree(i));
                     if (aux != null) {
                         break;
@@ -74,24 +76,21 @@ public class GeneralTreeOfInteger {
         if (father == null) { // Insere o elemento como raiz
             if (root == null) {
                 root = n;
-            }
-            else {
+            } else {
                 root.father = n;
                 n.addSubtree(root);
                 root = n;
             }
             count++;
             return true;
-        }
-        else { // Procura pelo pai
-            Node refParaPai = searchNodeRef(father,root);
+        } else { // Procura pelo pai
+            Node refParaPai = searchNodeRef(father, root);
             if (refParaPai == null) {
                 return false;
-            }
-            else {
+            } else {
                 n.father = refParaPai;
                 refParaPai.addSubtree(n);
-                count ++;
+                count++;
                 return true;
             }
         }
@@ -101,9 +100,22 @@ public class GeneralTreeOfInteger {
     // caminhamento em largura
     public LinkedList<Integer> positionsWidth() {
         LinkedList<Integer> lista = new LinkedList<>();
+        Queue<Node> fila = new Queue<>();
 
-        // IMPLEMENTE ESTE METODO !!
+        if (root != null) {
+            Node aux = root;
+            fila.enqueue(aux);
 
+            while (fila.isEmpty() == false) {
+                aux = fila.head();
+                lista.add(aux.element);
+
+                for (int i = 0; i < fila.head().getSubtreesSize(); i++) {
+                    fila.enqueue(aux.getSubtree(i));
+                }
+                fila.dequeue();
+            }
+        }
         return lista;
     }
 
@@ -111,7 +123,7 @@ public class GeneralTreeOfInteger {
     // caminhamento pré-fixado
     public LinkedList<Integer> positionsPre() {
         LinkedList<Integer> lista = new LinkedList<>();
-        positionsPreAux(root,lista);
+        positionsPreAux(root, lista);
         return lista;
     }
 
@@ -128,7 +140,7 @@ public class GeneralTreeOfInteger {
     // caminhamento pós-fixado
     public LinkedList<Integer> positionsPos() {
         LinkedList<Integer> lista = new LinkedList<>();
-        positionsPosAux(root,lista);
+        positionsPosAux(root, lista);
         return lista;
     }
 
