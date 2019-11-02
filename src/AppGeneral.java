@@ -24,5 +24,18 @@ public class AppGeneral {
             System.out.println("Nível do elemento 6: " + arv.level(6));
             System.out.println("Nível do elemento 1: " + arv.level(1));
             System.out.println("Nível do elemento 8: " + arv.level(8));
+
+            //Testando método removebranch
+            arv.removeBranch(2);
+
+            System.out.println("Caminhamento em largura:");
+            System.out.println(arv.positionsWidth());
+
+            System.out.println("Caminhamento pré-fixado:");
+            System.out.println(arv.positionsPre());
+
+            System.out.println("Caminhamento pós-fixado:");
+            System.out.println(arv.positionsPos());
+
         }
 }

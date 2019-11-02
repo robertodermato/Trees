@@ -172,13 +172,15 @@ public class GeneralTreeOfInteger {
 
     // Remove um galho da arvore
     public boolean removeBranch(Integer element) {
+        Node aux = searchNodeRef(element, root);
+        if (aux == null) return false;
 
-        // IMPLEMENTE ESTE METODO !!
-        return false;
-
+        Node pai = aux.father;
+        pai.removeSubtree(aux);
+        return true;
     }
 
-    // Conta o numero de nodos da subarvore suja raiz eh passada por parametro
+    // Conta o numero de nodos da subarvore cuja raiz eh passada por parametro
     private int countNodes(Node n) {
 
         // IMPLEMENTE ESTE METODO !!
