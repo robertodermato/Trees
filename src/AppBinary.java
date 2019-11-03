@@ -9,15 +9,17 @@ public class AppBinary {
             arv.addLeft(12,15);
             arv.addRight(17,15);
 
+            System.out.println("Contagem total de elementos da árvore");
+            System.out.println(arv.informaCount());
 
-            //System.out.println(arv.informaCount());
-            //System.out.println(arv.strPositionsCentral());
             System.out.println("Position Pré");
             System.out.println(arv.positionsPre());
             System.out.println("Position Pós");
             System.out.println(arv.positionsPos());
             System.out.println("Position Central");
             System.out.println(arv.positionsCentral());
+            System.out.println("Position Width");
+            System.out.println(arv.positionsWidth());
 
         }
 }

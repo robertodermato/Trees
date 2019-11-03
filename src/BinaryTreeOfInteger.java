@@ -216,13 +216,12 @@ public class BinaryTreeOfInteger {
         return lista;
     }
 
-    private LinkedListOfInteger positionsCentralAux(LinkedListOfInteger lista, Node nodo) {
+    private void positionsCentralAux(LinkedListOfInteger lista, Node nodo) {
         if (nodo != null) {
             positionsCentralAux(lista, nodo.left);
             lista.add(nodo.element);
             positionsCentralAux(lista, nodo.right);
         }
-        return lista;
     }
 
     /**
@@ -232,9 +231,18 @@ public class BinaryTreeOfInteger {
      * @return LinkedListOfInteger lista com os elementos da arvore
      */
     public LinkedListOfInteger positionsWidth() {
-        LinkedListOfInteger res = new LinkedListOfInteger();
+        LinkedListOfInteger largura = new LinkedListOfInteger();
+        Queue<Node> fila = new Queue();
 
-        return res;
+        fila.enqueue(root);
+
+        while (!fila.isEmpty()){
+            if (fila.head().left!=null) fila.enqueue(fila.head().left);
+            if (fila.head().right!=null) fila.enqueue(fila.head().right);
+            largura.add(fila.dequeue().element);
+        }
+
+        return largura;
     }
 
     /**
