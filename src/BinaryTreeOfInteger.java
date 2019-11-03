@@ -102,8 +102,15 @@ public class BinaryTreeOfInteger {
      * contrario.
      */
     public boolean addLeft(Integer element, Integer father) {
-
-        return false;
+        if (father == null || element == null) return false;
+        Node aux = searchNodeRef(father, root);
+        if (aux == null) return false;
+        if (aux.left != null) return false;
+        Node novoNodo = new Node (element);
+        novoNodo.father = aux;
+        aux.left = novoNodo;
+        count++;
+        return true;
     }
 
     /**
@@ -117,8 +124,15 @@ public class BinaryTreeOfInteger {
      * contrario.
      */
     public boolean addRight(Integer element, Integer father) {
-
-        return false;
+        if (father == null || element == null) return false;
+        Node aux = searchNodeRef(father, root);
+        if (aux == null) return false;
+        if (aux.right != null) return false;
+        Node novoNodo = new Node (element);
+        novoNodo.father = aux;
+        aux.right = novoNodo;
+        count++;
+        return true;
     }
 
     /**
@@ -186,7 +200,23 @@ public class BinaryTreeOfInteger {
      * @return String com todos os elementos da arvore
      */
     public String strPositionsCentral() {
-        return "";
+        String lista = "[";
+        if (isEmpty()==false) strPositionsCentralAux(lista, root);
+        return lista + "]";
+    }
+
+    private void strPositionsCentralAux(String lista, Node nodo) {
+        /*
+        if (nodo.left!=null) strPositionsCentralAux(lista, nodo.left);
+        lista = lista + nodo.element + ", ";
+        if (nodo.right!=null) strPositionsCentralAux(lista, nodo.right);
+         */
+
+        if (nodo != null) {
+            strPositionsCentralAux(lista, nodo.left);
+            lista = lista + nodo.element + ", ";
+            strPositionsCentralAux(lista, nodo.right);
+        }
     }
 
     /**
@@ -238,8 +268,11 @@ public class BinaryTreeOfInteger {
      * @return true se o elemento tem subarvore a esquerda, e false caso contrario.
      */
     public boolean hasLeft(Integer element) {
-        // Implemente este metodo
-        return false;
+        if (isEmpty()) return false;
+        if (element==null) return false;
+        Node aux = searchNodeRef(element, root);
+        if (aux==null) return false;
+        return (aux.left!=null);
     }
 
     /**
@@ -250,8 +283,11 @@ public class BinaryTreeOfInteger {
      * @return true se o elemento tem subarvore a direita, e false caso contrario.
      */
     public boolean hasRight(Integer element) {
-        // Implemente este metodo
-        return false;
+        if (isEmpty()) return false;
+        if (element==null) return false;
+        Node aux = searchNodeRef(element, root);
+        if (aux==null) return false;
+        return (aux.right!=null);
     }
 
     /**
