@@ -237,7 +237,9 @@ public class BinaryTreeOfInteger {
     public String strPositionsCentral() {
         String lista = "[";
         if (isEmpty() == false) lista = strPositionsCentralAux(lista, root);
-        return lista + "]";
+        lista = lista + "]";
+        lista = lista.replace(", ]", "]");
+        return lista;
     }
 
     private String strPositionsCentralAux(String lista, Node nodo) {

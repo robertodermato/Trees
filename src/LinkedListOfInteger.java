@@ -270,6 +270,8 @@ public class LinkedListOfInteger {
         }
 
         s.append("]");
-        return s.toString();
+        String lista = s.toString();
+        lista = lista.replace(", ]", "]");
+        return lista;
     }
 }
