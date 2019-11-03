@@ -8,6 +8,7 @@ public class BinaryTreeOfInteger {
         public Node left;
         public Node right;
         private Integer element;
+
         public Node(Integer element) {
             father = null;
             left = null;
@@ -96,8 +97,9 @@ public class BinaryTreeOfInteger {
      * Caso ja tenha um elemento a esquerda do pai, ou caso o
      * elemento pai nao seja encontrado na arvore, a insercao
      * nao e realizada.
+     *
      * @param element elemento a ser inserido
-     * @param father pai do elemento a ser inserido.
+     * @param father  pai do elemento a ser inserido.
      * @return true se o elemento for inserido e false caso
      * contrario.
      */
@@ -106,7 +108,7 @@ public class BinaryTreeOfInteger {
         Node aux = searchNodeRef(father, root);
         if (aux == null) return false;
         if (aux.left != null) return false;
-        Node novoNodo = new Node (element);
+        Node novoNodo = new Node(element);
         novoNodo.father = aux;
         aux.left = novoNodo;
         count++;
@@ -118,8 +120,9 @@ public class BinaryTreeOfInteger {
      * Caso ja tenha um elemento a direita do pai, ou caso o
      * elemento pai nao seja encontrado na arvore, a insercao
      * nao e realizada.
+     *
      * @param element elemento a ser inserido
-     * @param father pai do elemento a ser inserido.
+     * @param father  pai do elemento a ser inserido.
      * @return true se o elemento for inserido e false caso
      * contrario.
      */
@@ -128,7 +131,7 @@ public class BinaryTreeOfInteger {
         Node aux = searchNodeRef(father, root);
         if (aux == null) return false;
         if (aux.right != null) return false;
-        Node novoNodo = new Node (element);
+        Node novoNodo = new Node(element);
         novoNodo.father = aux;
         aux.right = novoNodo;
         count++;
@@ -138,13 +141,14 @@ public class BinaryTreeOfInteger {
     /**
      * Conta o total de nodos da subarvore cuja raiz esta sendo passada por
      * parametro.
+     *
      * @param n referencia para o nodo a partir do qual sera feita a contagem
      * @return
      */
     private int countNodes(Node n) {
-        if (n==null || isEmpty()) return 0;
+        if (n == null || isEmpty()) return 0;
         Node aux = searchNodeRef(n.element, root);
-        if (aux==null) return 0;
+        if (aux == null) return 0;
 
         int count = 1;
 
@@ -154,7 +158,7 @@ public class BinaryTreeOfInteger {
         return count;
     }
 
-    public int informaCount(){
+    public int informaCount() {
         Node aux = searchNodeRef(10, root);
         return countNodes(aux);
     }
@@ -162,6 +166,7 @@ public class BinaryTreeOfInteger {
     /**
      * Retorna uma lista com todos os elementos da arvore na ordem de
      * caminhamento pre-fixada. Deve chamar um metodo auxiliar recursivo.
+     *
      * @return LinkedListOfInteger lista com os elementos da arvore
      */
     public LinkedListOfInteger positionsPre() {
@@ -171,6 +176,7 @@ public class BinaryTreeOfInteger {
     /**
      * Retorna uma lista com todos os elementos da arvore na ordem de
      * caminhamento pos-fixada. Deve chamar um metodo auxiliar recursivo.
+     *
      * @return LinkedListOfInteger lista com os elementos da arvore
      */
     public LinkedListOfInteger positionsPos() {
@@ -180,15 +186,16 @@ public class BinaryTreeOfInteger {
     /**
      * Retorna uma lista com todos os elementos da arvore na ordem de
      * caminhamento central. Deve chamar um metodo auxiliar recursivo.
+     *
      * @return LinkedListOfInteger lista com os elementos da arvore
      */
     public LinkedListOfInteger positionsCentral() {
         LinkedListOfInteger lista = new LinkedListOfInteger();
-        if (isEmpty()==false) positionsCentralAux(lista, root);
+        if (isEmpty() == false) positionsCentralAux(lista, root);
         return lista;
     }
 
-    private LinkedListOfInteger positionsCentralAux (LinkedListOfInteger lista, Node nodo){
+    private LinkedListOfInteger positionsCentralAux(LinkedListOfInteger lista, Node nodo) {
         if (nodo != null) {
             positionsCentralAux(lista, nodo.left);
             lista.add(nodo.element);
@@ -200,6 +207,7 @@ public class BinaryTreeOfInteger {
     /**
      * Retorna uma lista com todos os elementos da arvore na ordem de
      * caminhamento em largura.
+     *
      * @return LinkedListOfInteger lista com os elementos da arvore
      */
     public LinkedListOfInteger positionsWidth() {
@@ -210,6 +218,7 @@ public class BinaryTreeOfInteger {
 
     /**
      * Procura pelo elemento passado por parametro e retorna o seu pai.
+     *
      * @param element elemento raiz da subarvore a ser removida.
      * @return true se o elemento passado por parametro for encontrado
      * e removido ou false caso contrario.
@@ -222,21 +231,32 @@ public class BinaryTreeOfInteger {
     /**
      * Retorna uma string que contem todos os elementos da arvore na ordem de
      * caminhamento central. Deve chamar um metodo auxiliar recursivo.
+     *
      * @return String com todos os elementos da arvore
      */
+    public String strPositionsCentral() {
+        String lista = "[";
+        if (isEmpty() == false) lista = strPositionsCentralAux(lista, root);
+        return lista + "]";
+    }
+
+    private String strPositionsCentralAux(String lista, Node nodo) {
+        if (nodo != null) {
+            lista = strPositionsCentralAux(lista, nodo.left);
+            lista = lista + nodo.element + ", ";
+            lista = strPositionsCentralAux(lista, nodo.right);
+        }
+        return lista;
+    }
+
+    //Tentativa 2
     public String strPositionsCentral2() {
         ArrayList<Integer> lista = new ArrayList<>();
-        if (isEmpty()==false) strPositionsCentralAux2(lista, root);
+        if (isEmpty() == false) strPositionsCentralAux2(lista, root);
         return lista + "";
     }
 
     private ArrayList<Integer> strPositionsCentralAux2(ArrayList<Integer> lista, Node nodo) {
-        /*
-        if (nodo.left!=null) strPositionsCentralAux(lista, nodo.left);
-        lista = lista + nodo.element + ", ";
-        if (nodo.right!=null) strPositionsCentralAux(lista, nodo.right);
-         */
-
         if (nodo != null) {
             strPositionsCentralAux2(lista, nodo.left);
             lista.add(nodo.element);
@@ -246,30 +266,10 @@ public class BinaryTreeOfInteger {
     }
 
 
-    public String strPositionsCentral() {
-        String lista = "[";
-        if (isEmpty()==false) lista=strPositionsCentralAux(lista, root);
-        return lista + "]";
-    }
-
-    private String strPositionsCentralAux(String lista, Node nodo) {
-        /*
-        if (nodo.left!=null) strPositionsCentralAux(lista, nodo.left);
-        lista = lista + nodo.element + ", ";
-        if (nodo.right!=null) strPositionsCentralAux(lista, nodo.right);
-         */
-
-        if (nodo != null) {
-            lista = strPositionsCentralAux(lista, nodo.left);
-            lista = lista + nodo.element + ", ";
-            lista = strPositionsCentralAux(lista, nodo.right);
-        }
-        return lista;
-    }
-
     /**
      * Retorna o nivel do nodo no qual esta armazenado o elemento
      * passadado por parametro.
+     *
      * @param element o elemento que se quer saber o nivel.
      * @return o nivel do nodo onde esta o elemento, ou -1 se nao
      * encontrou o elemento.
@@ -280,6 +280,7 @@ public class BinaryTreeOfInteger {
 
     /**
      * Retorna a altura da arvore. Deve chamar um metodo auxiliar recursivo.
+     *
      * @return altura da arvore
      */
     public int height() {
@@ -289,6 +290,7 @@ public class BinaryTreeOfInteger {
     /**
      * Verifica se o elemento passado por parametro esta armazenado em
      * um nodo folha.
+     *
      * @param element elemento a ser encontrado.
      * @return true se o elemento esta em um nodo folha, e false caso contrario.
      */
@@ -300,6 +302,7 @@ public class BinaryTreeOfInteger {
     /**
      * Verifica se o elemento passado por parametro esta armazenado em
      * um nodo interno ou galho.
+     *
      * @param element elemento a ser encontrado.
      * @return true se o elemento esta em um nodo interno, e false caso contrario.
      */
@@ -311,36 +314,39 @@ public class BinaryTreeOfInteger {
     /**
      * Verifica se o elemento passado por parametro tem um filho na
      * subarvore da esquerda.
+     *
      * @param element elemento a ser encontrado para verificar se possui filho
-     * a esquerda.
+     *                a esquerda.
      * @return true se o elemento tem subarvore a esquerda, e false caso contrario.
      */
     public boolean hasLeft(Integer element) {
         if (isEmpty()) return false;
-        if (element==null) return false;
+        if (element == null) return false;
         Node aux = searchNodeRef(element, root);
-        if (aux==null) return false;
-        return (aux.left!=null);
+        if (aux == null) return false;
+        return (aux.left != null);
     }
 
     /**
      * Verifica se o elemento passado por parametro tem um filho na
      * subarvore da direita.
+     *
      * @param element elemento a ser encontrado para verificar se possui filho
-     * a direita
+     *                a direita
      * @return true se o elemento tem subarvore a direita, e false caso contrario.
      */
     public boolean hasRight(Integer element) {
         if (isEmpty()) return false;
-        if (element==null) return false;
+        if (element == null) return false;
         Node aux = searchNodeRef(element, root);
-        if (aux==null) return false;
-        return (aux.right!=null);
+        if (aux == null) return false;
+        return (aux.right != null);
     }
 
     /**
      * Procura pelo elemento passado por parametro e retorna o seu filho da
      * subarvore da esquerda.
+     *
      * @param element elemento a ser encontrado para retornar seu filho a esquerda.
      * @return referencia para o filho da subarvore da esquerda, ou null caso o
      * elemento passado por parametro nao seja encontrado ou caso ele nao tenha
@@ -354,6 +360,7 @@ public class BinaryTreeOfInteger {
     /**
      * Procura pelo elemento passado por parametro e retorna o seu filho da
      * subarvore da direita.
+     *
      * @param element elemento a ser encontrado para retornar seu filho a direita.
      * @return referencia para o filho da subarvore da direita, ou null caso o
      * elemento passado por parametro nao seja encontrado ou caso ele nao tenha
@@ -366,6 +373,7 @@ public class BinaryTreeOfInteger {
 
     /**
      * Procura pelo elemento passado por parametro e retorna o seu pai.
+     *
      * @param element elemento a ser encontrado para retornar seu pai.
      * @return referencia para o pai, ou null caso o elemento passado por
      * parametro nao seja encontrado ou caso ele esteja na raiz.
