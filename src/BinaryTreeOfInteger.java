@@ -183,7 +183,18 @@ public class BinaryTreeOfInteger {
      * @return LinkedListOfInteger lista com os elementos da arvore
      */
     public LinkedListOfInteger positionsCentral() {
-        return null;
+        LinkedListOfInteger lista = new LinkedListOfInteger();
+        if (isEmpty()==false) positionsCentralAux(lista, root);
+        return lista;
+    }
+
+    private LinkedListOfInteger positionsCentralAux (LinkedListOfInteger lista, Node nodo){
+        if (nodo != null) {
+            positionsCentralAux(lista, nodo.left);
+            lista.add(nodo.element);
+            positionsCentralAux(lista, nodo.right);
+        }
+        return lista;
     }
 
     /**
@@ -213,13 +224,13 @@ public class BinaryTreeOfInteger {
      * caminhamento central. Deve chamar um metodo auxiliar recursivo.
      * @return String com todos os elementos da arvore
      */
-    public String strPositionsCentral() {
+    public String strPositionsCentral2() {
         ArrayList<Integer> lista = new ArrayList<>();
-        if (isEmpty()==false) strPositionsCentralAux(lista, root);
+        if (isEmpty()==false) strPositionsCentralAux2(lista, root);
         return lista + "";
     }
 
-    private ArrayList<Integer> strPositionsCentralAux(ArrayList<Integer> lista, Node nodo) {
+    private ArrayList<Integer> strPositionsCentralAux2(ArrayList<Integer> lista, Node nodo) {
         /*
         if (nodo.left!=null) strPositionsCentralAux(lista, nodo.left);
         lista = lista + nodo.element + ", ";
@@ -227,9 +238,31 @@ public class BinaryTreeOfInteger {
          */
 
         if (nodo != null) {
-            strPositionsCentralAux(lista, nodo.left);
+            strPositionsCentralAux2(lista, nodo.left);
             lista.add(nodo.element);
-            strPositionsCentralAux(lista, nodo.right);
+            strPositionsCentralAux2(lista, nodo.right);
+        }
+        return lista;
+    }
+
+
+    public String strPositionsCentral() {
+        String lista = "[";
+        if (isEmpty()==false) lista=strPositionsCentralAux(lista, root);
+        return lista + "]";
+    }
+
+    private String strPositionsCentralAux(String lista, Node nodo) {
+        /*
+        if (nodo.left!=null) strPositionsCentralAux(lista, nodo.left);
+        lista = lista + nodo.element + ", ";
+        if (nodo.right!=null) strPositionsCentralAux(lista, nodo.right);
+         */
+
+        if (nodo != null) {
+            lista = strPositionsCentralAux(lista, nodo.left);
+            lista = lista + nodo.element + ", ";
+            lista = strPositionsCentralAux(lista, nodo.right);
         }
         return lista;
     }

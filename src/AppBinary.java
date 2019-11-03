@@ -12,5 +12,6 @@ public class AppBinary {
 
             //System.out.println(arv.informaCount());
             System.out.println(arv.strPositionsCentral());
+            System.out.println(arv.positionsCentral());
         }
 }
