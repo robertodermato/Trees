@@ -180,11 +180,21 @@ public class GeneralTreeOfInteger {
         return true;
     }
 
+    //método público para poder chamr o count nodes no main
+    public int contaNodos (Integer element){
+        return countNodes(searchNodeRef(element, root));
+        }
+
     // Conta o numero de nodos da subarvore cuja raiz eh passada por parametro
     private int countNodes(Node n) {
+        int count = 1;
+        if (n==null) return count;
 
-        // IMPLEMENTE ESTE METODO !!
-        return 0;
+        for (int i = 0; i < n.getSubtreesSize(); i++) {
+            count = count + countNodes(n.getSubtree(i));
+        }
 
+        return count;
     }
+
 }
