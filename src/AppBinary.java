@@ -11,7 +11,13 @@ public class AppBinary {
 
 
             //System.out.println(arv.informaCount());
-            System.out.println(arv.strPositionsCentral());
+            //System.out.println(arv.strPositionsCentral());
+            System.out.println("Position Pré");
+            System.out.println(arv.positionsPre());
+            System.out.println("Position Pós");
+            System.out.println(arv.positionsPos());
+            System.out.println("Position Central");
             System.out.println(arv.positionsCentral());
+
         }
 }

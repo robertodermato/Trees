@@ -170,7 +170,17 @@ public class BinaryTreeOfInteger {
      * @return LinkedListOfInteger lista com os elementos da arvore
      */
     public LinkedListOfInteger positionsPre() {
-        return null;
+        LinkedListOfInteger lista = new LinkedListOfInteger();
+        if (isEmpty() == false) positionsPreAux(lista, root);
+        return lista;
+    }
+
+    private void positionsPreAux(LinkedListOfInteger lista, Node nodo) {
+        if (nodo != null) {
+            lista.add(nodo.element);
+            positionsPreAux(lista, nodo.left);
+            positionsPreAux(lista, nodo.right);
+        }
     }
 
     /**
@@ -180,8 +190,19 @@ public class BinaryTreeOfInteger {
      * @return LinkedListOfInteger lista com os elementos da arvore
      */
     public LinkedListOfInteger positionsPos() {
-        return null;
+        LinkedListOfInteger lista = new LinkedListOfInteger();
+        if (isEmpty() == false) positionsPosAux(lista, root);
+        return lista;
     }
+
+    private void positionsPosAux(LinkedListOfInteger lista, Node nodo) {
+        if (nodo != null) {
+            positionsPosAux(lista, nodo.left);
+            positionsPosAux(lista, nodo.right);
+            lista.add(nodo.element);
+        }
+    }
+
 
     /**
      * Retorna uma lista com todos os elementos da arvore na ordem de
