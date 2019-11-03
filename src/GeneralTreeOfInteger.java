@@ -188,7 +188,7 @@ public class GeneralTreeOfInteger {
     // Conta o numero de nodos da subarvore cuja raiz eh passada por parametro
     private int countNodes(Node n) {
         int count = 1;
-        if (n==null) return count;
+        if (n==null) return 0;
 
         for (int i = 0; i < n.getSubtreesSize(); i++) {
             count = count + countNodes(n.getSubtree(i));
