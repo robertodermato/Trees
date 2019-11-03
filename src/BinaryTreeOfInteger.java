@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 
 public class BinaryTreeOfInteger {
 
@@ -142,7 +142,21 @@ public class BinaryTreeOfInteger {
      * @return
      */
     private int countNodes(Node n) {
-        return 0;
+        if (n==null || isEmpty()) return 0;
+        Node aux = searchNodeRef(n.element, root);
+        if (aux==null) return 0;
+
+        int count = 1;
+
+        count = count + countNodes(n.left);
+        count = count + countNodes(n.right);
+
+        return count;
+    }
+
+    public int informaCount(){
+        Node aux = searchNodeRef(10, root);
+        return countNodes(aux);
     }
 
     /**
@@ -200,12 +214,12 @@ public class BinaryTreeOfInteger {
      * @return String com todos os elementos da arvore
      */
     public String strPositionsCentral() {
-        String lista = "[";
+        ArrayList<Integer> lista = new ArrayList<>();
         if (isEmpty()==false) strPositionsCentralAux(lista, root);
-        return lista + "]";
+        return lista + "";
     }
 
-    private void strPositionsCentralAux(String lista, Node nodo) {
+    private ArrayList<Integer> strPositionsCentralAux(ArrayList<Integer> lista, Node nodo) {
         /*
         if (nodo.left!=null) strPositionsCentralAux(lista, nodo.left);
         lista = lista + nodo.element + ", ";
@@ -214,9 +228,10 @@ public class BinaryTreeOfInteger {
 
         if (nodo != null) {
             strPositionsCentralAux(lista, nodo.left);
-            lista = lista + nodo.element + ", ";
+            lista.add(nodo.element);
             strPositionsCentralAux(lista, nodo.right);
         }
+        return lista;
     }
 
     /**

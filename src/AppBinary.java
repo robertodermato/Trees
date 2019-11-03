@@ -9,6 +9,8 @@ public class AppBinary {
             arv.addLeft(12,15);
             arv.addRight(17,15);
 
+
+            //System.out.println(arv.informaCount());
             System.out.println(arv.strPositionsCentral());
         }
 }
