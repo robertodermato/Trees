@@ -28,8 +28,16 @@ public class AppBinary {
             System.out.println("Position Width");
             System.out.println(arv.positionsWidth());
 
+            System.out.println("\nNível do 10 é: " + arv.level(10));
+            System.out.println("Nível do 15 é: " + arv.level(15));
+            System.out.println("Nível do 12 é: " + arv.level(12));
+            System.out.println("Nível do 08 é: " + arv.level(8));
+            System.out.println("Nível do 20 é: " + arv.level(20));
+
             arv.removeBranch(5);
-            System.out.println("Contagem total de elementos da árvore após remoção: " + arv.informaCount() + "\n");
+            System.out.println("\nContagem total de elementos da árvore após remoção: " + arv.informaCount());
+
+
 
         }
 }

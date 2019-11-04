@@ -236,9 +236,9 @@ public class BinaryTreeOfInteger {
 
         fila.enqueue(root);
 
-        while (!fila.isEmpty()){
-            if (fila.head().left!=null) fila.enqueue(fila.head().left);
-            if (fila.head().right!=null) fila.enqueue(fila.head().right);
+        while (!fila.isEmpty()) {
+            if (fila.head().left != null) fila.enqueue(fila.head().left);
+            if (fila.head().right != null) fila.enqueue(fila.head().right);
             largura.add(fila.dequeue().element);
         }
 
@@ -253,17 +253,17 @@ public class BinaryTreeOfInteger {
      * e removido ou false caso contrario.
      */
     public boolean removeBranch(Integer element) {
-        if (element==null) return false;
+        if (element == null) return false;
 
         Node aux = searchNodeRef(element, root);
-        if (aux==null) return false;
+        if (aux == null) return false;
 
         Node pai = aux.father;
 
         int removidos = countNodes(aux);
 
-        if (pai.left==aux) pai.left=null;
-        else pai.right=null;
+        if (pai.left == aux) pai.left = null;
+        else pai.right = null;
 
         count = count - removidos;
 
@@ -319,7 +319,17 @@ public class BinaryTreeOfInteger {
      * encontrou o elemento.
      */
     public int level(Integer element) {
-        return -1;
+        if (element == null) return -1;
+        Node aux = searchNodeRef(element, root);
+        if (aux == null) return -1;
+        int level = 0;
+
+        while (aux.father != null) {
+            level++;
+            aux = aux.father;
+        }
+
+        return level;
     }
 
     /**
