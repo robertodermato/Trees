@@ -337,10 +337,45 @@ public class BinaryTreeOfInteger {
      *
      * @return altura da arvore
      */
-    public int height() {
-        return -1;
+    public int height(){
+        if (isEmpty()) return -1;
+        return heightAux(root)-1;
     }
 
+    public int heightAux(Node node)
+    {
+        if (node == null)
+            return 0;
+        else
+        {
+            /* compute the depth of each subtree */
+            int leftDepth = heightAux(node.left);
+            int rightDepth = heightAux(node.right);
+
+            /* use the larger one */
+            if (leftDepth > rightDepth)
+                return (leftDepth + 1);
+            else
+                return (rightDepth + 1);
+        }
+    }
+
+
+    public int height2() {
+        if (isEmpty()) return -1;
+
+        return heightAux2(root);
+    }
+
+    private int heightAux2 (Node nodo){
+        if (nodo==null) return -1;
+        return max (heightAux2(root.left), heightAux2(root.right)) + 1;
+    }
+
+    private int max (int a, int b){
+        if (a>b) return a;
+        return b;
+    }
     /**
      * Verifica se o elemento passado por parametro esta armazenado em
      * um nodo folha.

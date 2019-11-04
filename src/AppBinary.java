@@ -37,6 +37,8 @@ public class AppBinary {
             arv.removeBranch(5);
             System.out.println("\nContagem total de elementos da árvore após remoção: " + arv.informaCount());
 
+            System.out.println("\nAltura da árvore é: " + arv.height());
+
 
 
         }
