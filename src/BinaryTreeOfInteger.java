@@ -414,7 +414,12 @@ public class BinaryTreeOfInteger {
      * @return true se o elemento esta em um nodo folha, e false caso contrario.
      */
     public boolean isExternal(Integer element) {
-        // Implemente este metodo
+        if (element==null) return false;
+        Node aux = searchNodeRef(element, root);
+        if (aux!=null) {
+            if (aux.left!=null || aux.right!=null) return false;
+            return true;
+        }
         return false;
     }
 
@@ -426,7 +431,12 @@ public class BinaryTreeOfInteger {
      * @return true se o elemento esta em um nodo interno, e false caso contrario.
      */
     public boolean isInternal(Integer element) {
-        // Implemente este metodo
+        if (element==null) return false;
+        Node aux = searchNodeRef(element, root);
+        if (aux!=null) {
+            if (aux.left!=null || aux.right!=null) return true;
+            return false;
+        }
         return false;
     }
 
