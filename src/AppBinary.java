@@ -41,6 +41,8 @@ public class AppBinary {
 
             System.out.println("\nAltura da árvore é: " + arv.height());
 
+            System.out.println(arv.isExternal(16));
+            System.out.println(arv.isInternal(12));
 
 
         }

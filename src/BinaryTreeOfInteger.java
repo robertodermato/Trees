@@ -482,8 +482,11 @@ public class BinaryTreeOfInteger {
      * filho na subarvore da esquerda.
      */
     public Integer getLeft(Integer element) {
-        // Implemente este metodo
-        return 0;
+        if (element==null) return null;
+        Node aux = searchNodeRef(element, root);
+        if (aux==null) return null;
+        if (aux.left==null) return null;
+        return aux.left.element;
     }
 
     /**
@@ -496,8 +499,12 @@ public class BinaryTreeOfInteger {
      * filho na subarvore da direita.
      */
     public Integer getRight(Integer element) {
-        // Implemente este metodo
-        return 0;
+        if (element==null) return null;
+        Node aux = searchNodeRef(element, root);
+        if (aux==null) return null;
+        if (aux.right==null) return null;
+        return aux.right.element;
+
     }
 
     /**
@@ -508,8 +515,11 @@ public class BinaryTreeOfInteger {
      * parametro nao seja encontrado ou caso ele esteja na raiz.
      */
     public Integer getParent(Integer element) {
-        // Implemente este metodo
-        return 0;
+        if (element==null) return null;
+        Node aux = searchNodeRef(element, root);
+        if (aux==null) return null;
+        if (aux.father==null) return null;
+        return aux.father.element;
     }
 
 }
