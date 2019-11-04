@@ -253,8 +253,21 @@ public class BinaryTreeOfInteger {
      * e removido ou false caso contrario.
      */
     public boolean removeBranch(Integer element) {
-        // Implemente este metodo
-        return false;
+        if (element==null) return false;
+
+        Node aux = searchNodeRef(element, root);
+        if (aux==null) return false;
+
+        Node pai = aux.father;
+
+        int removidos = countNodes(aux);
+
+        if (pai.left==aux) pai.left=null;
+        else pai.right=null;
+
+        count = count - removidos;
+
+        return true;
     }
 
     /**
