@@ -360,6 +360,36 @@ public class BinaryTreeOfInteger {
         }
     }
 
+    public int heightMicael() {
+        int h;
+        if(root == null){
+            h = -1;
+        }
+        else{
+            h = heightAuxMicael(root)-1;
+        }
+        return h;
+    }
+
+    private int heightAuxMicael(Node aux){
+        int hAux = 1;
+        int hAuxL = 0;
+        int hAuxR = 0;
+        if(aux.left != null){
+            hAuxL = heightAuxMicael(aux.left);
+        }
+        if(aux.right != null){
+            hAuxR = heightAuxMicael(aux.right);
+        }
+
+        if(hAuxL > hAuxR){
+            hAux = hAux + hAuxL;
+        }
+        else{
+            hAux = hAux + hAuxR;
+        }
+        return hAux;
+    }
 
     public int height2() {
         if (isEmpty()) return -1;

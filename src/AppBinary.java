@@ -25,6 +25,8 @@ public class AppBinary {
             System.out.println(arv.positionsPos());
             System.out.println("Position Central");
             System.out.println(arv.positionsCentral());
+            System.out.println("Position Central Str");
+            System.out.println(arv.strPositionsCentral());
             System.out.println("Position Width");
             System.out.println(arv.positionsWidth());
 
