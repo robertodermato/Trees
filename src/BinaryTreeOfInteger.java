@@ -522,4 +522,8 @@ public class BinaryTreeOfInteger {
         return aux.father.element;
     }
 
+    // countLeaves
+
+    //countBranches
+
 }

@@ -197,4 +197,12 @@ public class GeneralTreeOfInteger {
         return count;
     }
 
+    //count leaves
+
+    //count branches
+
+    //isInternal
+
+    //isExternal
+
 }
