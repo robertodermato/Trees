@@ -17,7 +17,9 @@ public class AppBinary {
             arv.addLeft(16,17);
             arv.addRight(18,17);
 
-            System.out.println("Contagem total de elementos da árvore: " + arv.informaCount() + "\n");
+            System.out.println("Contagem total de elementos da árvore: " + arv.informaCount());
+            System.out.println("Contagem de folhas: " + arv.countLeaves());
+            System.out.println("Contagem de galhos: " + arv.countBranches() + "\n");
 
             System.out.println("Position Pré");
             System.out.println(arv.positionsPre());

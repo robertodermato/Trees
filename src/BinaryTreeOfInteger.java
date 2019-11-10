@@ -337,17 +337,15 @@ public class BinaryTreeOfInteger {
      *
      * @return altura da arvore
      */
-    public int height(){
+    public int height() {
         if (isEmpty()) return -1;
-        return heightAux(root)-1;
+        return heightAux(root) - 1;
     }
 
-    public int heightAux(Node node)
-    {
+    public int heightAux(Node node) {
         if (node == null)
             return 0;
-        else
-        {
+        else {
             /* compute the depth of each subtree */
             int leftDepth = heightAux(node.left);
             int rightDepth = heightAux(node.right);
@@ -362,30 +360,28 @@ public class BinaryTreeOfInteger {
 
     public int heightMicael() {
         int h;
-        if(root == null){
+        if (root == null) {
             h = -1;
-        }
-        else{
-            h = heightAuxMicael(root)-1;
+        } else {
+            h = heightAuxMicael(root) - 1;
         }
         return h;
     }
 
-    private int heightAuxMicael(Node aux){
+    private int heightAuxMicael(Node aux) {
         int hAux = 1;
         int hAuxL = 0;
         int hAuxR = 0;
-        if(aux.left != null){
+        if (aux.left != null) {
             hAuxL = heightAuxMicael(aux.left);
         }
-        if(aux.right != null){
+        if (aux.right != null) {
             hAuxR = heightAuxMicael(aux.right);
         }
 
-        if(hAuxL > hAuxR){
+        if (hAuxL > hAuxR) {
             hAux = hAux + hAuxL;
-        }
-        else{
+        } else {
             hAux = hAux + hAuxR;
         }
         return hAux;
@@ -397,15 +393,16 @@ public class BinaryTreeOfInteger {
         return heightAux2(root);
     }
 
-    private int heightAux2 (Node nodo){
-        if (nodo==null) return -1;
-        return max (heightAux2(root.left), heightAux2(root.right)) + 1;
+    private int heightAux2(Node nodo) {
+        if (nodo == null) return -1;
+        return max(heightAux2(root.left), heightAux2(root.right)) + 1;
     }
 
-    private int max (int a, int b){
-        if (a>b) return a;
+    private int max(int a, int b) {
+        if (a > b) return a;
         return b;
     }
+
     /**
      * Verifica se o elemento passado por parametro esta armazenado em
      * um nodo folha.
@@ -414,10 +411,10 @@ public class BinaryTreeOfInteger {
      * @return true se o elemento esta em um nodo folha, e false caso contrario.
      */
     public boolean isExternal(Integer element) {
-        if (element==null) return false;
+        if (element == null) return false;
         Node aux = searchNodeRef(element, root);
-        if (aux!=null) {
-            if (aux.left!=null || aux.right!=null) return false;
+        if (aux != null) {
+            if (aux.left != null || aux.right != null) return false;
             return true;
         }
         return false;
@@ -431,10 +428,10 @@ public class BinaryTreeOfInteger {
      * @return true se o elemento esta em um nodo interno, e false caso contrario.
      */
     public boolean isInternal(Integer element) {
-        if (element==null) return false;
+        if (element == null) return false;
         Node aux = searchNodeRef(element, root);
-        if (aux!=null) {
-            if (aux.left!=null || aux.right!=null) return true;
+        if (aux != null) {
+            if (aux.left != null || aux.right != null) return true;
             return false;
         }
         return false;
@@ -482,10 +479,10 @@ public class BinaryTreeOfInteger {
      * filho na subarvore da esquerda.
      */
     public Integer getLeft(Integer element) {
-        if (element==null) return null;
+        if (element == null) return null;
         Node aux = searchNodeRef(element, root);
-        if (aux==null) return null;
-        if (aux.left==null) return null;
+        if (aux == null) return null;
+        if (aux.left == null) return null;
         return aux.left.element;
     }
 
@@ -499,10 +496,10 @@ public class BinaryTreeOfInteger {
      * filho na subarvore da direita.
      */
     public Integer getRight(Integer element) {
-        if (element==null) return null;
+        if (element == null) return null;
         Node aux = searchNodeRef(element, root);
-        if (aux==null) return null;
-        if (aux.right==null) return null;
+        if (aux == null) return null;
+        if (aux.right == null) return null;
         return aux.right.element;
 
     }
@@ -515,15 +512,55 @@ public class BinaryTreeOfInteger {
      * parametro nao seja encontrado ou caso ele esteja na raiz.
      */
     public Integer getParent(Integer element) {
-        if (element==null) return null;
+        if (element == null) return null;
         Node aux = searchNodeRef(element, root);
-        if (aux==null) return null;
-        if (aux.father==null) return null;
+        if (aux == null) return null;
+        if (aux.father == null) return null;
         return aux.father.element;
     }
 
-    // countLeaves
+    public int countLeaves() {
+        return countLeavesAux(root);
+    }
 
-    //countBranches
+
+    private int countLeavesAux(Node target) {
+        int count = 0;
+        if (target.right == null && target.left == null) return 1;
+        count = count + countLeavesAux(target.right);
+        count = count + countLeavesAux(target.left);
+        return count;
+    }
+
+    /*
+    private int countBranchesAux(Node n){ - Micael
+        int branchcount = 0;
+
+        int leftbranchcount = 0;
+        int rightbranchcount = 0;
+        if(n.left != null){
+            branchcount = 1;
+            leftbranchcount = countBranchesAux(n.left);
+        }
+        if(n.right != null){
+            branchcount = 1;
+            rightbranchcount = countBranchesAux(n.right);
+        }
+        return branchcount + leftbranchcount + rightbranchcount;
+    }
+    */
+
+    public int countBranches() {
+        return countBranchesAux(root);
+    }
+
+    private int countBranchesAux(Node target) {
+        int count = 0;
+        if (target.right == null && target.left == null) return 0;
+        else count++;
+        count = count + countBranchesAux(target.right);
+        count = count + countBranchesAux(target.left);
+        return count;
+    }
 
 }
