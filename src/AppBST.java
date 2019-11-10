@@ -19,8 +19,14 @@ public class AppBST {
         System.out.println("\nCaminhamento largura:");
         System.out.println(b.positionsWidth());
 
-        System.out.println(b.removeBranch(9));
-        System.out.println(b.removeBranch(23));
+        System.out.println("\nNível do 15 é: " + b.level(15));
+        System.out.println("Nível do 15 é: " + b.level(38));
+        System.out.println("Nível do 15 é: " + b.level(23));
+        System.out.println("Nível do 15 é: " + b.level(34));
+
+        //System.out.println(b.removeBranch(9));
+        //System.out.println(b.removeBranch(23));
+
         System.out.println("\nMaior é: " + b.getBiggest());
 
         System.out.println("\nAltura da árvore é: " + b.height());

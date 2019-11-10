@@ -434,8 +434,19 @@ public class BinarySearchTreeOfInteger {
      * encontrou o elemento.
      */
     public int level(Integer element) {
-        //Implemente este metodo
-        return 0;
+        if (element == null) return -1;
+        if (isEmpty()) return -1;
+        Node aux = searchNodeRef(element, root);
+        if (aux == null) return -1;
+
+        int level = 0;
+
+        while (aux.father!=null){
+            aux=aux.father;
+            level++;
+        }
+
+        return level;
     }
 
     /**
