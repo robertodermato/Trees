@@ -298,7 +298,43 @@ public class BinarySearchTreeOfInteger {
      */
     public int height() {
         //Implemente este metodo (de preferencia de forma recursiva)
-        return 0;
+        if (isEmpty()) return -1;
+        return heightAux(root);
+    }
+
+    public int heightAux (Node target){
+        int height = 0;
+        int heightLeft = 0;
+        int heightRight = 0;
+
+        if (target.left == null && target.right==null) return 1;
+
+        if (target.left!=null) heightLeft = height + heightAux(target.left);
+        if (target.right!=null) heightRight = height + heightAux(target.right);
+
+        if (heightLeft>heightRight) height = 1 + heightLeft;
+        else height= 1 + heightRight;
+
+        return height;
+    }
+
+    private int heightAuxMicael(Node aux) {
+        int hAux = 1;
+        int hAuxL = 0;
+        int hAuxR = 0;
+        if (aux.left != null) {
+            hAuxL = heightAuxMicael(aux.left);
+        }
+        if (aux.right != null) {
+            hAuxR = heightAuxMicael(aux.right);
+        }
+
+        if (hAuxL > hAuxR) {
+            hAux = hAux + hAuxL;
+        } else {
+            hAux = hAux + hAuxR;
+        }
+        return hAux;
     }
 
     /**
