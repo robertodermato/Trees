@@ -8,6 +8,7 @@ public class BinarySearchTreeOfInteger {
         public Node father;
         public Node left;
         public Node right;
+
         public Node(Integer element) {
             father = null;
             left = null;
@@ -94,6 +95,7 @@ public class BinarySearchTreeOfInteger {
     /**
      * Conta o total de nodos da subarvore cuja raiz esta sendo passada por
      * parametro.
+     *
      * @param n referencia para o nodo a partir do qual sera feita a contagem
      * @return total de elementos da subarvore
      */
@@ -108,6 +110,7 @@ public class BinarySearchTreeOfInteger {
     /**
      * Retorna uma lista com todos os elementos da arvore. Os elementos
      * sao colocados na lista seguindo um caminhamento prefixado.
+     *
      * @return lista com os elementos da arvore na ordem prefixada
      */
     public LinkedListOfInteger positionsPre() {
@@ -115,6 +118,7 @@ public class BinarySearchTreeOfInteger {
         positionsPreAux(root, res);
         return res;
     }
+
     private void positionsPreAux(Node n, LinkedListOfInteger res) {
         if (n != null) {
             res.add(n.element); //Visita o nodo
@@ -125,7 +129,28 @@ public class BinarySearchTreeOfInteger {
 
     /**
      * Retorna uma lista com todos os elementos da arvore. Os elementos
+     * sao colocados na lista seguindo um caminhamento pósfixado.
+     *
+     * @return lista com os elementos da arvore na ordem posfixada
+     */
+    public LinkedListOfInteger positionsPos() {
+        LinkedListOfInteger res = new LinkedListOfInteger();
+        positionsPosAux(root, res);
+        return res;
+    }
+
+    private void positionsPosAux(Node n, LinkedListOfInteger res) {
+        if (n != null) {
+            positionsPosAux(n.left, res); //Visita a subarvore esquerda
+            positionsPosAux(n.right, res); //Visita a subarvore direita
+            res.add(n.element); //Visita o nodo
+        }
+    }
+
+    /**
+     * Retorna uma lista com todos os elementos da arvore. Os elementos
      * sao colocados na lista seguindo um caminhamento central.
+     *
      * @return lista com os elementos da arvore na ordem central
      */
     public LinkedListOfInteger positionsCentral() {
@@ -133,6 +158,7 @@ public class BinarySearchTreeOfInteger {
         positionsCentralAux(root, res);
         return res;
     }
+
     private void positionsCentralAux(Node n, LinkedListOfInteger res) {
         if (n != null) {
             positionsCentralAux(n.left, res); //Visita a subarvore esquerda
@@ -145,12 +171,13 @@ public class BinarySearchTreeOfInteger {
      * Procura pelo menor elemento da subarvore cuja raiz eh passada por
      * parametro,e retorna a referencia para o nodo no qual este elemento
      * esta armazenado.
+     *
      * @param n referencia para a raiz da subarvore na qual deve ser
-     * feita a busca.
+     *          feita a busca.
      * @return referencia para o Node que contem o menor elemento da
      * subarvore.
      */
-    private Node smallest(Node n) {
+    private Node smallest(Node n) { //da professora
         if (n == null) {
             return null;
         }
@@ -160,14 +187,26 @@ public class BinarySearchTreeOfInteger {
         return smallest(n.left);
     }
 
+    private Node smallest2(Node n) { //meu
+        if (isEmpty() || n==null) return null;
+
+        while (n.right != null) {
+            n = n.right;
+        }
+
+        return n;
+    }
+
     /**
      * Adiciona o elemento passado por parametro na arvore.
+     *
      * @param element elemento a ser adicionado na arvore.
      */
     public void add(Integer element) {
         root = add(root, element, null);
         count++;
     }
+
     private Node add(Node n, Integer e, Node father) {
         if (n == null) {
             Node aux = new Node(e);
@@ -183,7 +222,6 @@ public class BinarySearchTreeOfInteger {
     }
 
 
-
     ////////////////////////////////////////////////////
     // Implemente os métodos abaixo
     ////////////////////////////////////////////////////
@@ -191,25 +229,71 @@ public class BinarySearchTreeOfInteger {
     /**
      * Remove da arvore o elemento passado como parametro, mantendo as
      * propriedades da ABP.
+     *
      * @param element elemento a ser removido.
      * @return true se achou o elemento e fez a remocao, e false caso
      * contrario.
      */
     public boolean remove(Integer element) {
-        // Implemente este metodo
+        if (element == null) return false;
+        Node aRemover = searchNodeRef(element, root);
+        if (aRemover == null) return false;
+
+        if (aRemover.element == aRemover.father.left.element) {
+            Node menorDosMaiores = aRemover.right;
+
+            while (menorDosMaiores != null && menorDosMaiores.left != null) {
+                menorDosMaiores = menorDosMaiores.left;
+            }
+
+            if (menorDosMaiores == null) {
+                aRemover.father.left = aRemover.left;
+                return true;
+            }
+
+            aRemover.element = menorDosMaiores.element;
+            menorDosMaiores.father.right = null;
+
+            return true;
+        }
+
+        Node maiorDosMenores = aRemover.left;
+
+        while (maiorDosMenores != null && maiorDosMenores.right != null) {
+            maiorDosMenores = maiorDosMenores.right;
+        }
+
+        if (maiorDosMenores == null) {
+            aRemover.father.right = aRemover.right;
+            return true;
+        }
+
+        aRemover.element = maiorDosMenores.element;
+        maiorDosMenores.father.left = null;
+
         return true;
+
     }
 
     /**
      * Retorna o maior elemento armazenado na ABP.
+     *
      * @return Integer o maior elemento da arvore.
      */
     public Integer getBiggest() {
-        return null;
+        if (isEmpty()) return null;
+        Node aux = root;
+
+        while (aux.right != null) {
+            aux = aux.right;
+        }
+
+        return aux.element;
     }
 
     /**
      * Retorna a altura da arvore. Deve chamar um metodo auxiliar recursivo.
+     *
      * @return altura da arvore
      */
     public int height() {
@@ -220,6 +304,7 @@ public class BinarySearchTreeOfInteger {
     /**
      * Retorna uma lista com todos os elementos da arvore na ordem de
      * caminhamento em largura.
+     *
      * @return LinkedListOfInteger lista com os elementos da arvore
      */
     public LinkedListOfInteger positionsWidth() {
@@ -233,6 +318,7 @@ public class BinarySearchTreeOfInteger {
     /**
      * Retorna o elemento que eh o filho a direita do elemento
      * passado por parametro.
+     *
      * @param element do qual se quer saber quem eh o filho a direita.
      * @return fiho da direita do elemento passado por parametro.
      */
@@ -244,6 +330,7 @@ public class BinarySearchTreeOfInteger {
     /**
      * Retorna o elemento que eh o pai do elemento passado por
      * parametro.
+     *
      * @param element do qual se quer saber quem eh o pai.
      * @return pai do elemento passado por parametro.
      */
@@ -256,6 +343,7 @@ public class BinarySearchTreeOfInteger {
      * Remove um galho da árvore. A raiz deste galho eh o nodo que contem
      * o elemento passado por parâmetro (element). Caso "element" nao esteja
      * na arvore, nao eh feita a remocao e o metodo retorna false.
+     *
      * @param element raiz da subarvore que deve ser removida
      * @return true se houve a remocao do galho, false caso contrario.
      */
@@ -267,6 +355,7 @@ public class BinarySearchTreeOfInteger {
     /**
      * Retorna o nivel do nodo no qual esta armazenado o elemento
      * passadado por parametro.
+     *
      * @param element o elemento que se quer saber o nivel.
      * @return o nivel do nodo onde esta o elemento, ou -1 se nao
      * encontrou o elemento.
@@ -279,11 +368,13 @@ public class BinarySearchTreeOfInteger {
     /**
      * Retorna uma string que contem todos os elementos da arvore na ordem de
      * caminhamento pre-fixada. Chamar um metodo auxiliar recursivo.
+     *
      * @return String com todos os elementos da arvore
      */
     public String strTraversalPre() {
         return strTraversalPre(root);
     }
+
     private String strTraversalPre(Node n) {
         String res = "";
         // Implemente este metodo
@@ -293,11 +384,13 @@ public class BinarySearchTreeOfInteger {
     /**
      * Retorna uma string que contem todos os elementos da arvore na ordem de
      * caminhamento pos-fixada. Chamar um metodo auxiliar recursivo.
+     *
      * @return String com todos os elementos da arvore
      */
     public String strTraversalPos() {
         return strTraversalPos(root);
     }
+
     private String strTraversalPos(Node n) {
         String res = "";
         // Implemente este metodo
@@ -307,11 +400,13 @@ public class BinarySearchTreeOfInteger {
     /**
      * Retorna uma string que contem todos os elementos da arvore na ordem de
      * caminhamento central. Chamar um metodo auxiliar recursivo.
+     *
      * @return String com todos os elementos da arvore
      */
     public String strTraversalCentral() {
         return strTraversalCentral(root);
     }
+
     private String strTraversalCentral(Node n) {
         String res = "";
         // Implemente este metodo
@@ -320,6 +415,7 @@ public class BinarySearchTreeOfInteger {
 
     /**
      * Retorna uma copia da arvore.
+     *
      * @return BinarySearchTreeOfInteger com uma copia desta ABP.
      */
     @Override
