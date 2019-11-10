@@ -359,6 +359,7 @@ public class BinarySearchTreeOfInteger {
      */
     public Integer getRight(Integer element) {
         if (element==null) return null;
+        if (isEmpty()) return null;
         Node aux = searchNodeRef(element, root);
         if (aux==null) return null;
         return aux.right.element;
@@ -366,6 +367,7 @@ public class BinarySearchTreeOfInteger {
 
     public Integer getLeft(Integer element) {
         Integer res = null;
+        if (isEmpty()) return null;
         Node nAux = searchNodeRef(element, root);
         if (nAux != null) {
             if (nAux.left != null) {
@@ -383,8 +385,12 @@ public class BinarySearchTreeOfInteger {
      * @return pai do elemento passado por parametro.
      */
     public Integer getParent(Integer element) {
-        // Implemente este metodo
-        return 0;
+        if (element==null) return null;
+        if (isEmpty()) return null;
+        Node aux = searchNodeRef(element, root);
+        if (aux==null) return null;
+        if (aux.father!=null) return aux.father.element;
+        return null;
     }
 
     /**
