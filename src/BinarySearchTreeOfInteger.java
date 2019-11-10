@@ -188,7 +188,7 @@ public class BinarySearchTreeOfInteger {
     }
 
     private Node smallest2(Node n) { //meu
-        if (isEmpty() || n==null) return null;
+        if (isEmpty() || n == null) return null;
 
         while (n.right != null) {
             n = n.right;
@@ -302,18 +302,18 @@ public class BinarySearchTreeOfInteger {
         return heightAux(root);
     }
 
-    public int heightAux (Node target){
+    public int heightAux(Node target) {
         int height = 0;
         int heightLeft = 0;
         int heightRight = 0;
 
-        if (target.left == null && target.right==null) return 1;
+        if (target.left == null && target.right == null) return 1;
 
-        if (target.left!=null) heightLeft = height + heightAux(target.left);
-        if (target.right!=null) heightRight = height + heightAux(target.right);
+        if (target.left != null) heightLeft = height + heightAux(target.left);
+        if (target.right != null) heightRight = height + heightAux(target.right);
 
-        if (heightLeft>heightRight) height = 1 + heightLeft;
-        else height= 1 + heightRight;
+        if (heightLeft > heightRight) height = 1 + heightLeft;
+        else height = 1 + heightRight;
 
         return height;
     }
@@ -345,9 +345,19 @@ public class BinarySearchTreeOfInteger {
      */
     public LinkedListOfInteger positionsWidth() {
         Queue<Node> fila = new Queue<>();
-        LinkedListOfInteger res = new LinkedListOfInteger();
-        // Implemente este metodo
-        return res;
+        LinkedListOfInteger lista = new LinkedListOfInteger();
+
+        if (isEmpty()) return null;
+
+        fila.enqueue(root);
+
+        while (!fila.isEmpty()) {
+            if (fila.head().left!=null) fila.enqueue(fila.head().left);
+            if (fila.head().right!=null) fila.enqueue(fila.head().right);
+            lista.add(fila.dequeue().element);
+        }
+
+        return lista;
     }
 
 

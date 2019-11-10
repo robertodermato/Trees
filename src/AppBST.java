@@ -14,6 +14,8 @@ public class AppBST {
         System.out.println(b.positionsCentral().toString());
         System.out.println("\nCaminhamento pré:");
         System.out.println(b.positionsPre());
+        System.out.println("\nCaminhamento pós:");
+        System.out.println(b.positionsPos());
         System.out.println("\nCaminhamento largura:");
         System.out.println(b.positionsWidth());
 
