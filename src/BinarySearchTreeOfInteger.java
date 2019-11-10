@@ -341,8 +341,8 @@ public class BinarySearchTreeOfInteger {
         fila.enqueue(root);
 
         while (!fila.isEmpty()) {
-            if (fila.head().left!=null) fila.enqueue(fila.head().left);
-            if (fila.head().right!=null) fila.enqueue(fila.head().right);
+            if (fila.head().left != null) fila.enqueue(fila.head().left);
+            if (fila.head().right != null) fila.enqueue(fila.head().right);
             lista.add(fila.dequeue().element);
         }
 
@@ -358,10 +358,10 @@ public class BinarySearchTreeOfInteger {
      * @return fiho da direita do elemento passado por parametro.
      */
     public Integer getRight(Integer element) {
-        if (element==null) return null;
+        if (element == null) return null;
         if (isEmpty()) return null;
         Node aux = searchNodeRef(element, root);
-        if (aux==null) return null;
+        if (aux == null) return null;
         return aux.right.element;
     }
 
@@ -385,11 +385,11 @@ public class BinarySearchTreeOfInteger {
      * @return pai do elemento passado por parametro.
      */
     public Integer getParent(Integer element) {
-        if (element==null) return null;
+        if (element == null) return null;
         if (isEmpty()) return null;
         Node aux = searchNodeRef(element, root);
-        if (aux==null) return null;
-        if (aux.father!=null) return aux.father.element;
+        if (aux == null) return null;
+        if (aux.father != null) return aux.father.element;
         return null;
     }
 
@@ -402,8 +402,27 @@ public class BinarySearchTreeOfInteger {
      * @return true se houve a remocao do galho, false caso contrario.
      */
     public boolean removeBranch(Integer element) {
-        // Implemente este metodo
-        return false;
+        if (element == null) return false;
+        if (isEmpty()) return false;
+        Node aux = searchNodeRef(element, root);
+        if (aux == null) return false;
+        int filhos = countNodes(aux);
+
+        if (aux.father == null) {
+            root = null;
+            count = 0;
+            return true;
+        }
+
+        if (aux.father.left!=null && aux.father.left.element == element) {
+            aux.father.left = null;
+            count = count - filhos;
+            return true;
+        }
+
+        aux.father.right = null;
+        count = count - filhos;
+        return true;
     }
 
     /**

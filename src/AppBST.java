@@ -8,8 +8,8 @@ public class AppBST {
         b.add(2);
         b.add(20);
         b.add(38);
-        b.add(39);
-        b.add(40);
+        //b.add(39);
+        //b.add(40);
         System.out.println("Caminhamento central - ordem correta:");
         System.out.println(b.positionsCentral().toString());
         System.out.println("\nCaminhamento pré:");
@@ -19,6 +19,8 @@ public class AppBST {
         System.out.println("\nCaminhamento largura:");
         System.out.println(b.positionsWidth());
 
+        System.out.println(b.removeBranch(9));
+        System.out.println(b.removeBranch(23));
         System.out.println("\nMaior é: " + b.getBiggest());
 
         System.out.println("\nAltura da árvore é: " + b.height());
