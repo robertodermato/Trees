@@ -575,18 +575,24 @@ public class BinarySearchTreeOfInteger {
      */
     @Override
     public BinarySearchTreeOfInteger clone() {
-        LinkedListOfInteger lista = positionsWidth();
         BinarySearchTreeOfInteger clone = new BinarySearchTreeOfInteger();
-        for (int i=0; i<lista.size(); i++){
-            clone.add(lista.get(i));
-        }
+        cloneAux(root, clone);
         return clone;
+    }
+
+    private void cloneAux(Node n, BinarySearchTreeOfInteger clone) {
+        if (n != null) {
+            clone.add(n.element);
+            cloneAux(n.left, clone);
+            cloneAux(n.right, clone);
+        }
+
     }
 
     public BinarySearchTreeOfInteger cloneMalandro() {
         LinkedListOfInteger lista = positionsWidth();
         BinarySearchTreeOfInteger clone = new BinarySearchTreeOfInteger();
-        for (int i=0; i<lista.size(); i++){
+        for (int i = 0; i < lista.size(); i++) {
             clone.add(lista.get(i));
         }
         return clone;
