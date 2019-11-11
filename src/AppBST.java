@@ -31,14 +31,14 @@ public class AppBST {
 
         System.out.println("\nAltura da árvore é: " + b.height());
 
-        /*
+
         b.remove(23);
         b.remove(9);
         b.remove(20);
         b.remove(38);
-        System.out.println("Caminhamento central - ordem correta:");
+        b.remove(15);
+        System.out.println("Caminhamento central - ordem correta após remoção:");
         System.out.println(b.positionsCentral().toString());
 
-         */
     }
 }
