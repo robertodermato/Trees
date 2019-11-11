@@ -223,6 +223,21 @@ public class BinarySearchTreeOfInteger {
      * @return true se achou o elemento e fez a remocao, e false caso
      * contrario.
      */
+
+    public boolean remove(Integer element) {
+        if (element == null) return false;
+        if (isEmpty()) return false;
+
+        Node aRemover = searchNodeRef(element, root);
+        if (aRemover == null) return false;
+
+
+
+        return false;
+    }
+
+
+    /* Meu remove
     public boolean remove(Integer element) {
         if (element == null) return false;
         Node aRemover = searchNodeRef(element, root);
@@ -263,6 +278,8 @@ public class BinarySearchTreeOfInteger {
         return true;
 
     }
+    */
+
 
     /**
      * Retorna o maior elemento armazenado na ABP.
