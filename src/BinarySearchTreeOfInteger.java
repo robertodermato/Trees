@@ -223,6 +223,75 @@ public class BinarySearchTreeOfInteger {
      * @return true se achou o elemento e fez a remocao, e false caso
      * contrario.
      */
+
+    public boolean remove(Integer element) {
+        if (element == null) return false;
+        if (isEmpty()) return false;
+
+        Node aRemover = searchNodeRef(element, root);
+        if (aRemover == null) return false;
+
+        remove(aRemover);
+        count--;
+        return true;
+    }
+
+    private void remove(Node n) {
+        Node pai = n.father;
+
+        //exclusão de folha
+        if (n.left == null && n.right == null) {
+            if (n == root) {
+                root = null;
+                root.father = null;
+            } else {
+                if (pai.left == n)
+                    pai.left = null;
+                else
+                    pai.right = null;
+            }
+        }
+
+        //exclusão de um nodo com filho à direita
+        else if (n.right != null && n.left == null) {
+            if (n == root) {
+                root = n.right;
+                root.father = null;
+            } else {
+                if (pai.left == n) {
+                    pai.left = n.right;
+                } else {
+                    pai.right = n.right;
+                }
+                n.right.father = pai;
+            }
+        }
+
+        //exclusão de um nodo com filho à esquerda
+        else if (n.right == null && n.left != null) {
+            if (n == root) {
+                root = n.left;
+                root.father = null;
+            } else {
+                if (pai.left == n) {
+                    pai.left = n.left;
+                } else {
+                    pai.right = n.left;
+                }
+                n.left.father = pai;
+            }
+
+        }
+
+        //exclusão de um nodo com 2 filhos
+        else {
+            Node menor = smallest(n.right);
+            n.element = menor.element;
+            remove(menor);
+        }
+    }
+
+    /* Meu remove
     public boolean remove(Integer element) {
         if (element == null) return false;
         Node aRemover = searchNodeRef(element, root);
@@ -263,6 +332,8 @@ public class BinarySearchTreeOfInteger {
         return true;
 
     }
+    */
+
 
     /**
      * Retorna o maior elemento armazenado na ABP.
@@ -414,7 +485,7 @@ public class BinarySearchTreeOfInteger {
             return true;
         }
 
-        if (aux.father.left!=null && aux.father.left.element == element) {
+        if (aux.father.left != null && aux.father.left.element == element) {
             aux.father.left = null;
             count = count - filhos;
             return true;
@@ -441,8 +512,8 @@ public class BinarySearchTreeOfInteger {
 
         int level = 0;
 
-        while (aux.father!=null){
-            aux=aux.father;
+        while (aux.father != null) {
+            aux = aux.father;
             level++;
         }
 
@@ -504,7 +575,27 @@ public class BinarySearchTreeOfInteger {
      */
     @Override
     public BinarySearchTreeOfInteger clone() {
-        return null;
+        BinarySearchTreeOfInteger clone = new BinarySearchTreeOfInteger();
+        cloneAux(root, clone);
+        return clone;
+    }
+
+    private void cloneAux(Node n, BinarySearchTreeOfInteger clone) {
+        if (n != null) {
+            clone.add(n.element);
+            cloneAux(n.left, clone);
+            cloneAux(n.right, clone);
+        }
+
+    }
+
+    public BinarySearchTreeOfInteger cloneMalandro() {
+        LinkedListOfInteger lista = positionsWidth();
+        BinarySearchTreeOfInteger clone = new BinarySearchTreeOfInteger();
+        for (int i = 0; i < lista.size(); i++) {
+            clone.add(lista.get(i));
+        }
+        return clone;
     }
 
 }
