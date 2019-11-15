@@ -1,35 +1,24 @@
 public class NodoRubroNegro<T extends Comparable<T>> {
 
-    /**
-     * Possible color for this node
-     */
+    // cores possiveis
     public static final int BLACK = 0;
-    /**
-     * Possible color for this node
-     */
     public static final int RED = 1;
-    // the key of each node
+
+    // a chave para cada nodo
     public T key;
 
-    /**
-     * Parent of node
-     */
     NodoRubroNegro<T> parent;
-    /**
-     * Left child
-     */
     NodoRubroNegro<T> left;
-    /**
-     * Right child
-     */
     NodoRubroNegro<T> right;
-    // the number of elements to the left of each node
+
+    // número de elementos à esquerda de cada nodo
     public int numLeft = 0;
-    // the number of elements to the right of each node
+    // número de elementos à direita de cada nodo
     public int numRight = 0;
-    // the color of a node
+
     public int color;
 
+    //construtor para poder construir os nodos folhas nil
     NodoRubroNegro() {
         color = BLACK;
         numLeft = 0;
@@ -39,12 +28,12 @@ public class NodoRubroNegro<T extends Comparable<T>> {
         right = null;
     }
 
-    // Constructor which sets key to the argument.
+    //construtor para colocar os objetos
     NodoRubroNegro(T key) {
         this();
         this.key = key;
     }
-}// end class RedBlackNode
+}
 
 
 

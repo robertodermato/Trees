@@ -43,6 +43,7 @@ These values are assigned to the 'color' variable.
 // Inclusions
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ArvoreRubroNegra<T extends Comparable<T>> {
@@ -59,7 +60,7 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
     }
 
     // @param: x, nodo sobre o qual será executada uma rotação para esquerda
-    private void leftRotate(NodoRubroNegro<T> x){
+    private void leftRotate(NodoRubroNegro<T> x) {
 
         // chama leftRotateFixup() que faz update em numLeft e numRight
         leftRotateFixup(x);
@@ -92,19 +93,19 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
     }// end leftRotate(RedBlackNode x)
 
 
-    // @param: x, Nodo sobre o qual o leftRotate é executaado.
-    // Updates the numLeft & numRight values affected by leftRotate.
-    private void leftRotateFixup(NodoRubroNegro x){
+    // @param: x, Nodo sobre o qual o leftRotate é executado.
+    // Esse método faz um update nos valores de numLeft e numRight que serão afetados pelo leftRotate.
+    private void leftRotateFixup(NodoRubroNegro x) {
 
         // Caso 1: Somente x, x.right e x.right.right sempre são não nil.
-        if (isNil(x.left) && isNil(x.right.left)){
+        if (isNil(x.left) && isNil(x.right.left)) {
             x.numLeft = 0;
             x.numRight = 0;
             x.right.numLeft = 1;
         }
 
         // Caso 2: x.right.left também existe em adição ao Caso 1
-        else if (isNil(x.left) && !isNil(x.right.left)){
+        else if (isNil(x.left) && !isNil(x.right.left)) {
             x.numLeft = 0;
             x.numRight = 1 + x.right.left.numLeft +
                     x.right.left.numRight;
@@ -113,13 +114,13 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
         }
 
         // Caso 3: x.left existe em adição ao Caso 1
-        else if (!isNil(x.left) && isNil(x.right.left)){
+        else if (!isNil(x.left) && isNil(x.right.left)) {
             x.numRight = 0;
             x.right.numLeft = 2 + x.left.numLeft + x.left.numRight;
 
         }
         // Caso 4: x.left e x.right.left existem em adição ao Caso 1
-        else{
+        else {
             x.numRight = 1 + x.right.left.numLeft +
                     x.right.left.numRight;
             x.right.numLeft = 3 + x.left.numLeft + x.left.numRight +
@@ -131,7 +132,7 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
 
     // @param: x, The node which the rightRotate is to be performed on.
     // Updates the numLeft and numRight values affected by the Rotate.
-    private void rightRotate(NodoRubroNegro<T> y){
+    private void rightRotate(NodoRubroNegro<T> y) {
 
         // Call rightRotateFixup to adjust numRight and numLeft values
         rightRotateFixup(y);
@@ -165,17 +166,17 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
 
     // @param: y, the node around which the righRotate is to be performed.
     // Updates the numLeft and numRight values affected by the rotate
-    private void rightRotateFixup(NodoRubroNegro y){
+    private void rightRotateFixup(NodoRubroNegro y) {
 
         // Case 1: Only y, y.left and y.left.left exists.
-        if (isNil(y.right) && isNil(y.left.right)){
+        if (isNil(y.right) && isNil(y.left.right)) {
             y.numRight = 0;
             y.numLeft = 0;
             y.left.numRight = 1;
         }
 
         // Case 2: y.left.right also exists in addition to Case 1
-        else if (isNil(y.right) && !isNil(y.left.right)){
+        else if (isNil(y.right) && !isNil(y.left.right)) {
             y.numRight = 0;
             y.numLeft = 1 + y.left.right.numRight +
                     y.left.right.numLeft;
@@ -184,14 +185,14 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
         }
 
         // Case 3: y.right also exists in addition to Case 1
-        else if (!isNil(y.right) && isNil(y.left.right)){
+        else if (!isNil(y.right) && isNil(y.left.right)) {
             y.numLeft = 0;
-            y.left.numRight = 2 + y.right.numRight +y.right.numLeft;
+            y.left.numRight = 2 + y.right.numRight + y.right.numLeft;
 
         }
 
         // Case 4: y.right & y.left.right exist in addition to Case 1
-        else{
+        else {
             y.numLeft = 1 + y.left.right.numRight +
                     y.left.right.numLeft;
             y.left.numRight = 3 + y.right.numRight +
@@ -202,26 +203,25 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
     }// end rightRotateFixup(RedBlackNode y)
 
 
-    public void insert(T key) {
-        insert(new NodoRubroNegro<T>(key));
+    public void add(T novoNodo) {
+        add(new NodoRubroNegro<T>(novoNodo));
     }
 
-    // @param: z, the node to be inserted into the Tree rooted at root
-    // Inserts z into the appropriate position in the RedBlackTree while
+    // @param: novoNodo, the node to be inserted into the Tree rooted at root
+    // Inserts novoNodo into the appropriate position in the RedBlackTree while
     // updating numLeft and numRight values.
-    private void insert(NodoRubroNegro<T> z) {
+    private void add(NodoRubroNegro<T> novoNodo) {
 
-        // Create a reference to root & initialize a node to nil
+        // Cria uma referência para raiz e inicializa um nodo como mil
         NodoRubroNegro<T> y = nil;
         NodoRubroNegro<T> x = root;
 
-        // While we haven't reached a the end of the tree keep
-        // tryint to figure out where z should go
-        while (!isNil(x)){
+        // Enquanto não se chega ao final da árvore continue vendo onde colocar o nonoNodo
+        while (!isNil(x)) {
             y = x;
 
             // if z.key is < than the current key, go left
-            if (z.key.compareTo(x.key) < 0){
+            if (novoNodo.key.compareTo(x.key) < 0) {
 
                 // Update x.numLeft as z is < than x
                 x.numLeft++;
@@ -229,7 +229,7 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
             }
 
             // else z.key >= x.key so go right.
-            else{
+            else {
 
                 // Update x.numGreater as z is => x
                 x.numRight++;
@@ -237,94 +237,94 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
             }
         }
         // y will hold z's parent
-        z.parent = y;
+        novoNodo.parent = y;
 
         // Depending on the value of y.key, put z as the left or
         // right child of y
         if (isNil(y))
-            root = z;
-        else if (z.key.compareTo(y.key) < 0)
-            y.left = z;
+            root = novoNodo;
+        else if (novoNodo.key.compareTo(y.key) < 0)
+            y.left = novoNodo;
         else
-            y.right = z;
+            y.right = novoNodo;
 
         // Initialize z's children to nil and z's color to red
-        z.left = nil;
-        z.right = nil;
-        z.color = NodoRubroNegro.RED;
+        novoNodo.left = nil;
+        novoNodo.right = nil;
+        novoNodo.color = NodoRubroNegro.RED;
 
         // Call insertFixup(z)
-        insertFixup(z);
+        insertFixup(novoNodo);
 
     }// end insert(RedBlackNode z)
 
 
-    // @param: z, the node which was inserted and may have caused a violation
+    // @param: novoNodo, the node which was inserted and may have caused a violation
     // of the RedBlackTree properties
     // Fixes up the violation of the RedBlackTree properties that may have
     // been caused during insert(z)
-    private void insertFixup(NodoRubroNegro<T> z){
+    private void insertFixup(NodoRubroNegro<T> novoNodo) {
 
         NodoRubroNegro<T> y = nil;
         // While there is a violation of the RedBlackTree properties..
-        while (z.parent.color == NodoRubroNegro.RED){
+        while (novoNodo.parent.color == NodoRubroNegro.RED) {
 
             // If z's parent is the the left child of it's parent.
-            if (z.parent == z.parent.parent.left){
+            if (novoNodo.parent == novoNodo.parent.parent.left) {
 
                 // Initialize y to z 's cousin
-                y = z.parent.parent.right;
+                y = novoNodo.parent.parent.right;
 
                 // Case 1: if y is red...recolor
-                if (y.color == NodoRubroNegro.RED){
-                    z.parent.color = NodoRubroNegro.BLACK;
+                if (y.color == NodoRubroNegro.RED) {
+                    novoNodo.parent.color = NodoRubroNegro.BLACK;
                     y.color = NodoRubroNegro.BLACK;
-                    z.parent.parent.color = NodoRubroNegro.RED;
-                    z = z.parent.parent;
+                    novoNodo.parent.parent.color = NodoRubroNegro.RED;
+                    novoNodo = novoNodo.parent.parent;
                 }
                 // Case 2: if y is black & z is a right child
-                else if (z == z.parent.right){
+                else if (novoNodo == novoNodo.parent.right) {
 
                     // leftRotaet around z's parent
-                    z = z.parent;
-                    leftRotate(z);
+                    novoNodo = novoNodo.parent;
+                    leftRotate(novoNodo);
                 }
 
                 // Case 3: else y is black & z is a left child
-                else{
+                else {
                     // recolor and rotate round z's grandpa
-                    z.parent.color = NodoRubroNegro.BLACK;
-                    z.parent.parent.color = NodoRubroNegro.RED;
-                    rightRotate(z.parent.parent);
+                    novoNodo.parent.color = NodoRubroNegro.BLACK;
+                    novoNodo.parent.parent.color = NodoRubroNegro.RED;
+                    rightRotate(novoNodo.parent.parent);
                 }
             }
 
             // If z's parent is the right child of it's parent.
-            else{
+            else {
 
                 // Initialize y to z's cousin
-                y = z.parent.parent.left;
+                y = novoNodo.parent.parent.left;
 
                 // Case 1: if y is red...recolor
-                if (y.color == NodoRubroNegro.RED){
-                    z.parent.color = NodoRubroNegro.BLACK;
+                if (y.color == NodoRubroNegro.RED) {
+                    novoNodo.parent.color = NodoRubroNegro.BLACK;
                     y.color = NodoRubroNegro.BLACK;
-                    z.parent.parent.color = NodoRubroNegro.RED;
-                    z = z.parent.parent;
+                    novoNodo.parent.parent.color = NodoRubroNegro.RED;
+                    novoNodo = novoNodo.parent.parent;
                 }
 
                 // Case 2: if y is black and z is a left child
-                else if (z == z.parent.left){
+                else if (novoNodo == novoNodo.parent.left) {
                     // rightRotate around z's parent
-                    z = z.parent;
-                    rightRotate(z);
+                    novoNodo = novoNodo.parent;
+                    rightRotate(novoNodo);
                 }
                 // Case 3: if y  is black and z is a right child
-                else{
+                else {
                     // recolor and rotate around z's grandpa
-                    z.parent.color = NodoRubroNegro.BLACK;
-                    z.parent.parent.color = NodoRubroNegro.RED;
-                    leftRotate(z.parent.parent);
+                    novoNodo.parent.color = NodoRubroNegro.BLACK;
+                    novoNodo.parent.parent.color = NodoRubroNegro.RED;
+                    leftRotate(novoNodo.parent.parent);
                 }
             }
         }
@@ -335,7 +335,7 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
 
     // @param: node, a RedBlackNode
     // @param: node, the node with the smallest key rooted at node
-    public NodoRubroNegro<T> treeMinimum(NodoRubroNegro<T> node){
+    public NodoRubroNegro<T> treeMinimum(NodoRubroNegro<T> node) {
 
         // while there is a smaller key, keep going left
         while (!isNil(node.left))
@@ -344,21 +344,20 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
     }// end treeMinimum(RedBlackNode node)
 
 
-
     // @param: x, a RedBlackNode whose successor we must find
     // @return: return's the node the with the next largest key
     // from x.key
-    public NodoRubroNegro<T> treeSuccessor(NodoRubroNegro<T> x){
+    public NodoRubroNegro<T> treeSuccessor(NodoRubroNegro<T> x) {
 
         // if x.left is not nil, call treeMinimum(x.right) and
         // return it's value
-        if (!isNil(x.left) )
+        if (!isNil(x.left))
             return treeMinimum(x.right);
 
         NodoRubroNegro<T> y = x.parent;
 
         // while x is it's parent's right child...
-        while (!isNil(y) && x == y.right){
+        while (!isNil(y) && x == y.right) {
             // Keep moving up in the tree
             x = y;
             y = y.parent;
@@ -370,7 +369,7 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
 
     // @param: z, the RedBlackNode which is to be removed from the the tree
     // Remove's z from the RedBlackTree rooted at root
-    public void remove(NodoRubroNegro<T> v){
+    public void remove(NodoRubroNegro<T> v) {
 
         NodoRubroNegro<T> z = search(v.key);
 
@@ -407,13 +406,13 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
             y.parent.right = x;
 
         // if y != z, trasfer y's satellite data into z.
-        if (y != z){
+        if (y != z) {
             z.key = y.key;
         }
 
         // Update the numLeft and numRight numbers which might need
         // updating due to the deletion of z.key.
-        fixNodeData(x,y);
+        fixNodeData(x, y);
 
         // If y's color is black, it is a violation of the
         // RedBlackTree properties so call removeFixup()
@@ -424,7 +423,7 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
 
     // @param: y, the RedBlackNode which was actually deleted from the tree
     // @param: key, the value of the key that used to be in y
-    private void fixNodeData(NodoRubroNegro<T> x, NodoRubroNegro<T> y){
+    private void fixNodeData(NodoRubroNegro<T> x, NodoRubroNegro<T> y) {
 
         // Initialize two variables which will help us traverse the tree
         NodoRubroNegro<T> current = nil;
@@ -433,20 +432,20 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
 
         // if x is nil, then we will start updating at y.parent
         // Set track to y, y.parent's child
-        if (isNil(x)){
+        if (isNil(x)) {
             current = y.parent;
             track = y;
         }
 
         // if x is not nil, then we start updating at x.parent
         // Set track to x, x.parent's child
-        else{
+        else {
             current = x.parent;
             track = x;
         }
 
         // while we haven't reached the root
-        while (!isNil(current)){
+        while (!isNil(current)) {
             // if the node we deleted has a different key than
             // the current node
             if (y.key != current.key) {
@@ -464,7 +463,7 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
 
             // if the node we deleted has the same key as the
             // current node we are checking
-            else{
+            else {
                 // the cases where the current node has any nil
                 // children and update appropriately
                 if (isNil(current.left))
@@ -493,21 +492,21 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
     // @param: x, the child of the deleted node from remove(RedBlackNode v)
     // Restores the Red Black properties that may have been violated during
     // the removal of a node in remove(RedBlackNode v)
-    private void removeFixup(NodoRubroNegro<T> x){
+    private void removeFixup(NodoRubroNegro<T> x) {
 
         NodoRubroNegro<T> w;
 
         // While we haven't fixed the tree completely...
-        while (x != root && x.color == NodoRubroNegro.BLACK){
+        while (x != root && x.color == NodoRubroNegro.BLACK) {
 
             // if x is it's parent's left child
-            if (x == x.parent.left){
+            if (x == x.parent.left) {
 
                 // set w = x's sibling
                 w = x.parent.right;
 
                 // Case 1, w's color is red.
-                if (w.color == NodoRubroNegro.RED){
+                if (w.color == NodoRubroNegro.RED) {
                     w.color = NodoRubroNegro.BLACK;
                     x.parent.color = NodoRubroNegro.RED;
                     leftRotate(x.parent);
@@ -516,14 +515,14 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
 
                 // Case 2, both of w's children are black
                 if (w.left.color == NodoRubroNegro.BLACK &&
-                        w.right.color == NodoRubroNegro.BLACK){
+                        w.right.color == NodoRubroNegro.BLACK) {
                     w.color = NodoRubroNegro.RED;
                     x = x.parent;
                 }
                 // Case 3 / Case 4
-                else{
+                else {
                     // Case 3, w's right child is black
-                    if (w.right.color == NodoRubroNegro.BLACK){
+                    if (w.right.color == NodoRubroNegro.BLACK) {
                         w.left.color = NodoRubroNegro.BLACK;
                         w.color = NodoRubroNegro.RED;
                         rightRotate(w);
@@ -538,13 +537,13 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
                 }
             }
             // if x is it's parent's right child
-            else{
+            else {
 
                 // set w to x's sibling
                 w = x.parent.left;
 
                 // Case 1, w's color is red
-                if (w.color == NodoRubroNegro.RED){
+                if (w.color == NodoRubroNegro.RED) {
                     w.color = NodoRubroNegro.BLACK;
                     x.parent.color = NodoRubroNegro.RED;
                     rightRotate(x.parent);
@@ -553,15 +552,15 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
 
                 // Case 2, both of w's children are black
                 if (w.right.color == NodoRubroNegro.BLACK &&
-                        w.left.color == NodoRubroNegro.BLACK){
+                        w.left.color == NodoRubroNegro.BLACK) {
                     w.color = NodoRubroNegro.RED;
                     x = x.parent;
                 }
 
                 // Case 3 / Case 4
-                else{
+                else {
                     // Case 3, w's left child is black
-                    if (w.left.color == NodoRubroNegro.BLACK){
+                    if (w.left.color == NodoRubroNegro.BLACK) {
                         w.right.color = NodoRubroNegro.BLACK;
                         w.color = NodoRubroNegro.RED;
                         leftRotate(w);
@@ -584,19 +583,17 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
     }// end removeFixup(RedBlackNode x)
 
 
-
-
     // @param: key, the key whose node we want to search for
     // @return: returns a node with the key, key, if not found, returns null
     // Searches for a node with key k and returns the first such node, if no
     // such node is found returns null
-    public NodoRubroNegro<T> search(T key){
+    public NodoRubroNegro<T> search(T key) {
 
         // Initialize a pointer to the root to traverse the tree
         NodoRubroNegro<T> current = root;
 
         // While we haven't reached the end of the tree
-        while (!isNil(current)){
+        while (!isNil(current)) {
 
             // If we have found a node with a key equal to key
             if (current.key.equals(key))
@@ -621,22 +618,22 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
 
     // @param: key, any Comparable object
     // @return: return's the number of elements greater than key
-    public int numGreater(T key){
+    public int numGreater(T key) {
 
         // Call findNumGreater(root, key) which will return the number
         // of nodes whose key is greater than key
-        return findNumGreater(root,key);
+        return findNumGreater(root, key);
 
     }// end numGreater(int key)
 
 
     // @param: key, any Comparable object
     // @return: return's teh number of elements smaller than key
-    public int numSmaller(T key){
+    public int numSmaller(T key) {
 
         // Call findNumSmaller(root,key) which will return
         // the number of nodes whose key is greater than key
-        return findNumSmaller(root,key);
+        return findNumSmaller(root, key);
 
     }// end numSmaller(int key)
 
@@ -644,7 +641,7 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
     // @param: node, the root of the tree, the key who we must
     // compare other node key's to.
     // @return: the number of nodes greater than key.
-    public int findNumGreater(NodoRubroNegro<T> node, T key){
+    public int findNumGreater(NodoRubroNegro<T> node, T key) {
 
         // Base Case: if node is nil, return 0
         if (isNil(node))
@@ -652,19 +649,20 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
             // If key is less than node.key, all elements right of node are
             // greater than key, add this to our total and look to the left
         else if (key.compareTo(node.key) < 0)
-            return 1+ node.numRight + findNumGreater(node.left,key);
+            return 1 + node.numRight + findNumGreater(node.left, key);
 
             // If key is greater than node.key, then look to the right as
             // all elements to the left of node are smaller than key
         else
-            return findNumGreater(node.right,key);
+            return findNumGreater(node.right, key);
 
     }// end findNumGreater(RedBlackNode, int key)
 
     /**
      * Returns sorted list of keys greater than key.  Size of list
      * will not exceed maxReturned
-     * @param key Key to search for
+     *
+     * @param key         Key to search for
      * @param maxReturned Maximum number of results to return
      * @return List of keys greater than key.  List may not exceed maxReturned
      */
@@ -691,7 +689,7 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
     // @param: node, the root of the tree, the key who we must compare other
     // node key's to.
     // @return: the number of nodes smaller than key.
-    public int findNumSmaller(NodoRubroNegro<T> node, T key){
+    public int findNumSmaller(NodoRubroNegro<T> node, T key) {
 
         // Base Case: if node is nil, return 0
         if (isNil(node)) return 0;
@@ -699,20 +697,20 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
             // If key is less than node.key, look to the left as all
             // elements on the right of node are greater than key
         else if (key.compareTo(node.key) <= 0)
-            return findNumSmaller(node.left,key);
+            return findNumSmaller(node.left, key);
 
             // If key is larger than node.key, all elements to the left of
             // node are smaller than key, add this to our total and look
             // to the right.
         else
-            return 1+ node.numLeft + findNumSmaller(node.right,key);
+            return 1 + node.numLeft + findNumSmaller(node.right, key);
 
     }// end findNumSmaller(RedBlackNode nod, int key)
 
 
     // @param: node, the RedBlackNode we must check to see whether it's nil
     // @return: return's true of node is nil and false otherwise
-    private boolean isNil(NodoRubroNegro node){
+    private boolean isNil(NodoRubroNegro node) {
 
         // return appropriate value
         return node == nil;
@@ -720,15 +718,41 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
     }// end isNil(RedBlackNode node)
 
 
-    // @return: return's the size of the tree
-    // Return's the # of nodes including the root which the RedBlackTree
-    // rooted at root has.
-    public int size(){
+    // @return: retorna o tamanho da árvore
+    public int size() {
 
         // Return the number of nodes to the root's left + the number of
         // nodes on the root's right + the root itself.
         return root.numLeft + root.numRight + 1;
-    }// end size()
+    }
+
+
+    // @return: retorna true se a árvore está vazia, ou seja se size() é zero, caso contrário retorna false
+    public boolean isEmpty(){
+        return size()==0;
+    }
+
+    /**
+     * Retorna uma lista com todos os elementos da arvore na ordem de
+     * caminhamento central. Deve chamar um metodo auxiliar recursivo.
+     *
+     * @return LinkedListOfInteger lista com os elementos da arvore
+     */
+    public LinkedList positionsCentral() {
+        LinkedList lista = new LinkedList();
+        if (isEmpty() == false) positionsCentralAux(lista, root);
+        return lista;
+    }
+
+    private void positionsCentralAux(LinkedList lista, NodoRubroNegro nodo) {
+        if (nodo != null) {
+            positionsCentralAux(lista, nodo.left);
+            lista.add(nodo.key);
+            positionsCentralAux(lista, nodo.right);
+        }
+    }
+
+
 
 }// end class RedBlackTree
 
