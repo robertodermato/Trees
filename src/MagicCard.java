@@ -28,4 +28,9 @@ public class MagicCard implements Comparable<MagicCard> {
     public int compareTo(MagicCard outraCard) {
         return custo.compareTo(outraCard.getCusto());
     }
+
+    @Override
+    public String toString() {
+        return nome + " Custo: R$ " + custo;
+    }
 }

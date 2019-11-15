@@ -745,7 +745,7 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
     }
 
     private void positionsCentralAux(LinkedList lista, NodoRubroNegro nodo) {
-        if (nodo != null) {
+        if (nodo != null && nodo.key!=null) {
             positionsCentralAux(lista, nodo.left);
             lista.add(nodo.key);
             positionsCentralAux(lista, nodo.right);

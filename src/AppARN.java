@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 public class AppARN {
 
     public static void main(String[] args) {
@@ -10,7 +12,9 @@ public class AppARN {
         listaCartas.add(card1);
         listaCartas.add(card2);
 
+        LinkedList <MagicCard> lista = listaCartas.positionsCentral();
 
+        System.out.println(lista);
 
     }
 
