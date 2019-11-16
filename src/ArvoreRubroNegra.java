@@ -335,7 +335,7 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
 
     // @param: node, a RedBlackNode
     // @param: node, the node with the smallest key rooted at node
-    public NodoRubroNegro<T> treeMinimum(NodoRubroNegro<T> node) {
+    public NodoRubroNegro<T> getSmallest(NodoRubroNegro<T> node) {
 
         // while there is a smaller key, keep going left
         while (!isNil(node.left))
@@ -352,7 +352,7 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
         // if x.left is not nil, call treeMinimum(x.right) and
         // return it's value
         if (!isNil(x.left))
-            return treeMinimum(x.right);
+            return getSmallest(x.right);
 
         NodoRubroNegro<T> y = x.parent;
 
