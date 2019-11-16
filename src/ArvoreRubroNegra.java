@@ -70,27 +70,27 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
         y = x.right;
         x.right = y.left;
 
-        // Check for existence of y.left and make pointer changes
+        //checa de y.left exsite e faz mudanças necessárias
         if (!isNil(y.left))
             y.left.parent = x;
         y.parent = x.parent;
 
-        // x's parent is nul
+        //pai do x é nulo
         if (isNil(x.parent))
             root = y;
 
-            // x is the left child of it's parent
+        // x é o filho da esquerda
         else if (x.parent.left == x)
             x.parent.left = y;
 
-            // x is the right child of it's parent.
+        // x é o filho da direita
         else
             x.parent.right = y;
 
-        // Finish of the leftRotate
+        // termina o leftRotate
         y.left = x;
         x.parent = y;
-    }// end leftRotate(RedBlackNode x)
+    }
 
 
     // @param: x, Nodo sobre o qual o leftRotate é executado.
@@ -127,55 +127,55 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
                     x.right.left.numLeft + x.right.left.numRight;
         }
 
-    }// end leftRotateFixup(RedBlackNode x)
+    }
 
 
-    // @param: x, The node which the rightRotate is to be performed on.
-    // Updates the numLeft and numRight values affected by the Rotate.
+    // @param: x, nodo sobre o qual o rightRotate é executado
+    // Atualiza os valores de numLeft e numRight afetados pela rotação.
     private void rightRotate(NodoRubroNegro<T> y) {
 
-        // Call rightRotateFixup to adjust numRight and numLeft values
+        // chama rightRotateFixup para ajustar os valores de numRight e numLeft
         rightRotateFixup(y);
 
-        // Perform the rotate as described in the course text.
+        // faz a rotação
         NodoRubroNegro<T> x = y.left;
         y.left = x.right;
 
-        // Check for existence of x.right
+        // checa se x.right existe
         if (!isNil(x.right))
             x.right.parent = y;
         x.parent = y.parent;
 
-        // y.parent is nil
+        // y.parent é nil
         if (isNil(y.parent))
             root = x;
 
-            // y is a right child of it's parent.
+        // y é o filho da direita
         else if (y.parent.right == y)
             y.parent.right = x;
 
-            // y is a left child of it's parent.
+        // y é o filho da esquerda
         else
             y.parent.left = x;
         x.right = y;
 
         y.parent = x;
 
-    }// end rightRotate(RedBlackNode y)
+    }
 
 
-    // @param: y, the node around which the righRotate is to be performed.
-    // Updates the numLeft and numRight values affected by the rotate
+    // @param: y, nodo sobre o qual o righRotate é executado.
+    // Atualiza os valores de numLeft e numRight afetaods pela rotação
     private void rightRotateFixup(NodoRubroNegro y) {
 
-        // Case 1: Only y, y.left and y.left.left exists.
+        // Caso 1: Somente y, y.left e y.left.left existem.
         if (isNil(y.right) && isNil(y.left.right)) {
             y.numRight = 0;
             y.numLeft = 0;
             y.left.numRight = 1;
         }
 
-        // Case 2: y.left.right also exists in addition to Case 1
+        // Caso 2: y.left.right também existe
         else if (isNil(y.right) && !isNil(y.left.right)) {
             y.numRight = 0;
             y.numLeft = 1 + y.left.right.numRight +
@@ -184,14 +184,14 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
                     y.left.right.numLeft;
         }
 
-        // Case 3: y.right also exists in addition to Case 1
+        // Caso 3: y.right também existe em adição ao caso1
         else if (!isNil(y.right) && isNil(y.left.right)) {
             y.numLeft = 0;
             y.left.numRight = 2 + y.right.numRight + y.right.numLeft;
 
         }
 
-        // Case 4: y.right & y.left.right exist in addition to Case 1
+        // Caso 4: y.right e y.left.right existem
         else {
             y.numLeft = 1 + y.left.right.numRight +
                     y.left.right.numLeft;
@@ -200,7 +200,7 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
                     y.left.right.numRight + y.left.right.numLeft;
         }
 
-    }// end rightRotateFixup(RedBlackNode y)
+    }
 
 
     public void add(T novoNodo) {
