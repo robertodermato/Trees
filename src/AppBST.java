@@ -31,6 +31,9 @@ public class AppBST {
 
         System.out.println("\nAltura da árvore é: " + b.height());
 
+        System.out.println("\nFolhas: " + b.countLeaves());
+        System.out.println("\nFolhas Micael: " + b.countLeaves2());
+
 
         //b.remove(23);
         //b.remove(9);

@@ -598,4 +598,40 @@ public class BinarySearchTreeOfInteger {
         return clone;
     }
 
+    public int countLeaves(){
+        if (isEmpty()) return -1;
+        int folhas = 0;
+        folhas = countLeaves(root);
+        return folhas;
+    }
+
+    public int countLeaves (Node nodo){
+        if (nodo==null) return 0;
+        int leaves=0;
+        if (nodo.left==null && nodo.right==null) return 1;
+        if (nodo.left!=null) leaves = leaves + countNodes(nodo.left);
+        if (nodo.right!=null) leaves = leaves + countNodes(nodo.right);
+        return leaves;
+    }
+
+    public int countLeaves2(){
+        return countLeavesAux(root);
+    }
+
+    private int countLeavesAux(Node n){
+        int leafcount = 1;
+
+        int leftleafcount = 0;
+        int rightleafcount = 0;
+        if(n.left != null){
+            leafcount = 0;
+            leftleafcount = countLeavesAux(n.left);
+        }
+        if(n.right != null){
+            leafcount = 0;
+            rightleafcount = countLeavesAux(n.right);
+        }
+        return leafcount + leftleafcount + rightleafcount;
+    }
+
 }
