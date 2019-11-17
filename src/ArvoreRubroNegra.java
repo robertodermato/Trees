@@ -331,38 +331,35 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
 
     }
 
-    // @param: node, a RedBlackNode
-    // @param: node, the node with the smallest key rooted at node
+    // @param: node, um nodo
+    // @return: node, retorna o nodo com a menor key com raiz em node
     public NodoRubroNegro<T> getSmallest(NodoRubroNegro<T> node) {
 
-        // while there is a smaller key, keep going left
         while (!isNil(node.left))
             node = node.left;
         return node;
-    }// end treeMinimum(RedBlackNode node)
+    }
 
 
-    // @param: x, a RedBlackNode whose successor we must find
-    // @return: return's the node the with the next largest key
+    // @param: x, um nodo cujo sucessor queremos achar
+    // @return: retorna o nodo com a maior chave a partir de x.key
     // from x.key
     public NodoRubroNegro<T> treeSuccessor(NodoRubroNegro<T> x) {
 
-        // if x.left is not nil, call treeMinimum(x.right) and
-        // return it's value
+        // se x.left não for nulo, chama getSmallest à direita, ou seja, o segundo maior valor depois de x.key
         if (!isNil(x.left))
             return getSmallest(x.right);
 
         NodoRubroNegro<T> y = x.parent;
 
-        // while x is it's parent's right child...
+        // enquanto x for filho da direita...
         while (!isNil(y) && x == y.right) {
-            // Keep moving up in the tree
             x = y;
             y = y.parent;
         }
-        // Return successor
+
         return y;
-    }// end treeMinimum(RedBlackNode x)
+    }
 
 
     // @param: z, the RedBlackNode which is to be removed from the the tree
