@@ -605,12 +605,12 @@ public class BinarySearchTreeOfInteger {
         return folhas;
     }
 
-    public int countLeaves (Node nodo){
+    private int countLeaves (Node nodo){
         if (nodo==null) return 0;
         int leaves=0;
         if (nodo.left==null && nodo.right==null) return 1;
-        if (nodo.left!=null) leaves = leaves + countNodes(nodo.left);
-        if (nodo.right!=null) leaves = leaves + countNodes(nodo.right);
+        if (nodo.left!=null) leaves = leaves + countLeaves(nodo.left);
+        if (nodo.right!=null) leaves = leaves + countLeaves(nodo.right);
         return leaves;
     }
 

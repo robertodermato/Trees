@@ -40,7 +40,10 @@ value 0. Both these are declared as final in this class' instance variables.
 These values are assigned to the 'color' variable.
 */
 
-// Inclusions
+/*
+* Ávore rubro-negra baseada na árvore de Zarar Siddiqi (Arsenalist)
+* disponível em: https://github.com/Arsenalist/Red-Black-Tree-Java-Implementation/blob/master/src/RedBlackTree.java
+*/
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -362,58 +365,55 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
     }
 
 
-    // @param: z, the RedBlackNode which is to be removed from the the tree
-    // Remove's z from the RedBlackTree rooted at root
+    // @param: v, nodo que será removido
+    // Remove v
     public void remove(NodoRubroNegro<T> v) {
 
         NodoRubroNegro<T> z = searchRefNode(v.key);
 
-        // Declare variables
         NodoRubroNegro<T> x = nil;
         NodoRubroNegro<T> y = nil;
 
-        // if either one of z's children is nil, then we must remove z
+        // se qualquer um dos filhos de z for nil, ele será removido
         if (isNil(z.left) || isNil(z.right))
             y = z;
 
-            // else we must remove the successor of z
+        // senão removeremos o sucessor de z
         else y = treeSuccessor(z);
 
-        // Let x be the left or right child of y (y can only have one child)
+        // x será o filho da esquerda ou da direita de y (y só pode ter um filho, já que é o menor dessa subárvore)
         if (!isNil(y.left))
             x = y.left;
         else
             x = y.right;
 
-        // link x's parent to y's parent
+        // liga pai de x com pai de y
         x.parent = y.parent;
 
-        // If y's parent is nil, then x is the root
+        // se pai de y é nil, então x é a raiz
         if (isNil(y.parent))
             root = x;
 
-            // else if y is a left child, set x to be y's left sibling
+        // se y é um filho da esquerda, deixa x no seu lugar
         else if (!isNil(y.parent.left) && y.parent.left == y)
             y.parent.left = x;
 
-            // else if y is a right child, set x to be y's right sibling
+        // senão, se y é um filho da direita, deixa x no seu lugar
         else if (!isNil(y.parent.right) && y.parent.right == y)
             y.parent.right = x;
 
-        // if y != z, trasfer y's satellite data into z.
+        // se y não for o z, transfere dados do y para o z
         if (y != z) {
             z.key = y.key;
         }
 
-        // Update the numLeft and numRight numbers which might need
-        // updating due to the deletion of z.key.
+        // faz update nos valores de numLeft e numRight
         fixNodeData(x, y);
 
-        // If y's color is black, it is a violation of the
-        // RedBlackTree properties so call removeFixup()
+        // se a cor de y for negra, isso é uma violação das regras da ARN, então chama removeFixup()
         if (y.color == NodoRubroNegro.BLACK)
             removeFixup(x);
-    }// end remove(RedBlackNode z)
+    }
 
 
     // @param: y, the RedBlackNode which was actually deleted from the tree
