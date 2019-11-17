@@ -486,26 +486,25 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
 
         }
 
-    }//end fixNodeData()
+    }
 
 
-    // @param: x, the child of the deleted node from remove(RedBlackNode v)
-    // Restores the Red Black properties that may have been violated during
-    // the removal of a node in remove(RedBlackNode v)
+    // @param: x, o filho do nodo deletado pelo remove
+    // Restaura as propriedades da ARN que podem ter sido violadas durante o remove
     private void removeFixup(NodoRubroNegro<T> x) {
 
         NodoRubroNegro<T> w;
 
-        // While we haven't fixed the tree completely...
+
         while (x != root && x.color == NodoRubroNegro.BLACK) {
 
-            // if x is it's parent's left child
+            // se x é o pai do filho da esquerda
             if (x == x.parent.left) {
 
-                // set w = x's sibling
+                // w vira o irmão de x
                 w = x.parent.right;
 
-                // Case 1, w's color is red.
+                // Caso 1, w é rubro
                 if (w.color == NodoRubroNegro.RED) {
                     w.color = NodoRubroNegro.BLACK;
                     x.parent.color = NodoRubroNegro.RED;
@@ -513,22 +512,22 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
                     w = x.parent.right;
                 }
 
-                // Case 2, both of w's children are black
+                // Caso 2, ambos filhos de w são negros
                 if (w.left.color == NodoRubroNegro.BLACK &&
                         w.right.color == NodoRubroNegro.BLACK) {
                     w.color = NodoRubroNegro.RED;
                     x = x.parent;
                 }
-                // Case 3 / Case 4
+
                 else {
-                    // Case 3, w's right child is black
+                    // Caso 3, filho da diretia de w é negro
                     if (w.right.color == NodoRubroNegro.BLACK) {
                         w.left.color = NodoRubroNegro.BLACK;
                         w.color = NodoRubroNegro.RED;
                         rightRotate(w);
                         w = x.parent.right;
                     }
-                    // Case 4, w = black, w.right = red
+                    // Caso 4, w é ngro e seu filho da direita é vermelho
                     w.color = x.parent.color;
                     x.parent.color = NodoRubroNegro.BLACK;
                     w.right.color = NodoRubroNegro.BLACK;
@@ -536,13 +535,13 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
                     x = root;
                 }
             }
-            // if x is it's parent's right child
+            // se x é o filho da direita
             else {
 
-                // set w to x's sibling
+                // deixa w como irmão da esquerda
                 w = x.parent.left;
 
-                // Case 1, w's color is red
+                // Caso 1, w é rubro
                 if (w.color == NodoRubroNegro.RED) {
                     w.color = NodoRubroNegro.BLACK;
                     x.parent.color = NodoRubroNegro.RED;
@@ -550,16 +549,16 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
                     w = x.parent.left;
                 }
 
-                // Case 2, both of w's children are black
+                // Caso 2, ambos filhos de w são negros
                 if (w.right.color == NodoRubroNegro.BLACK &&
                         w.left.color == NodoRubroNegro.BLACK) {
                     w.color = NodoRubroNegro.RED;
                     x = x.parent;
                 }
 
-                // Case 3 / Case 4
+
                 else {
-                    // Case 3, w's left child is black
+                    // Caso 3, filho da esquerda de w é negro
                     if (w.left.color == NodoRubroNegro.BLACK) {
                         w.right.color = NodoRubroNegro.BLACK;
                         w.color = NodoRubroNegro.RED;
@@ -567,7 +566,7 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
                         w = x.parent.left;
                     }
 
-                    // Case 4, w = black, and w.left = red
+                    // Caso 4, w é negro e seu filho da esquerda é vermelho
                     w.color = x.parent.color;
                     x.parent.color = NodoRubroNegro.BLACK;
                     w.left.color = NodoRubroNegro.BLACK;
@@ -575,12 +574,11 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
                     x = root;
                 }
             }
-        }// end while
+        }
 
-        // set x to black to ensure there is no violation of
-        // RedBlack tree Properties
+        // x fica negro para garantir as propriedades da ARN
         x.color = NodoRubroNegro.BLACK;
-    }// end removeFixup(RedBlackNode x)
+    }
 
 
     // @param: key, the key whose node we want to search for
