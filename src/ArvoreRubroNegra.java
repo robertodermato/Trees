@@ -207,9 +207,8 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
         add(new NodoRubroNegro<T>(novoNodo));
     }
 
-    // @param: novoNodo, the node to be inserted into the Tree rooted at root
-    // Inserts novoNodo into the appropriate position in the RedBlackTree while
-    // updating numLeft and numRight values.
+    // @param: novoNodo, nodo a ser inserido
+    // insere novoNodo no local adequado e faz update nos valores de numLeft e numRight.
     private void add(NodoRubroNegro<T> novoNodo) {
 
         // Cria uma referência para raiz e inicializa um nodo como mil
@@ -220,27 +219,26 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
         while (!isNil(x)) {
             y = x;
 
-            // if z.key is < than the current key, go left
+            // se novoNodo.key é menor que key, vai para esquerda
             if (novoNodo.key.compareTo(x.key) < 0) {
 
-                // Update x.numLeft as z is < than x
+                // atualiza x.numLeft
                 x.numLeft++;
                 x = x.left;
             }
 
-            // else z.key >= x.key so go right.
+            // senao vai para direita
             else {
 
-                // Update x.numGreater as z is => x
+                // atualiza x.numRight
                 x.numRight++;
                 x = x.right;
             }
         }
-        // y will hold z's parent
+        // y é referência para o pai
         novoNodo.parent = y;
 
-        // Depending on the value of y.key, put z as the left or
-        // right child of y
+        // Dependendo do valor de y.key, coloca o novoNodo à esquerda ou à direita
         if (isNil(y))
             root = novoNodo;
         else if (novoNodo.key.compareTo(y.key) < 0)
@@ -248,64 +246,63 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
         else
             y.right = novoNodo;
 
-        // Initialize z's children to nil and z's color to red
+        // inicializa os filhos do novonodo com nil e sua cor para vemelho
         novoNodo.left = nil;
         novoNodo.right = nil;
         novoNodo.color = NodoRubroNegro.RED;
 
-        // Call insertFixup(z)
+        // chama insertFixup
         insertFixup(novoNodo);
 
-    }// end insert(RedBlackNode z)
+    }
 
 
-    // @param: novoNodo, the node which was inserted and may have caused a violation
-    // of the RedBlackTree properties
-    // Fixes up the violation of the RedBlackTree properties that may have
-    // been caused during insert(z)
+    // @param: novoNodo, nodo  que foi inserido e que pode ter causado violação nas regras da ARN
+    // Arruma as propriedades da ARN
     private void insertFixup(NodoRubroNegro<T> novoNodo) {
 
         NodoRubroNegro<T> y = nil;
-        // While there is a violation of the RedBlackTree properties..
+
+        // nodo inserido é da cor vermelha, logo seu pai não pode ser vermelho
         while (novoNodo.parent.color == NodoRubroNegro.RED) {
 
-            // If z's parent is the the left child of it's parent.
+            //se o pai do novoNodo e um filho da esquerda
             if (novoNodo.parent == novoNodo.parent.parent.left) {
 
-                // Initialize y to z 's cousin
+                // y é o primo do novoNodo
                 y = novoNodo.parent.parent.right;
 
-                // Case 1: if y is red...recolor
+                // Caso 1: se y for vermelho: recolorir
                 if (y.color == NodoRubroNegro.RED) {
                     novoNodo.parent.color = NodoRubroNegro.BLACK;
                     y.color = NodoRubroNegro.BLACK;
                     novoNodo.parent.parent.color = NodoRubroNegro.RED;
                     novoNodo = novoNodo.parent.parent;
                 }
-                // Case 2: if y is black & z is a right child
+                // Caso 2: se y for negro e novoNodo for um filho da direita
                 else if (novoNodo == novoNodo.parent.right) {
 
-                    // leftRotaet around z's parent
+                    // leftRotate ao redor do pai do novoNodo
                     novoNodo = novoNodo.parent;
                     leftRotate(novoNodo);
                 }
 
-                // Case 3: else y is black & z is a left child
+                // Caso 3: y é negro e novoNodo é um filho da esquerda
                 else {
-                    // recolor and rotate round z's grandpa
+                    // recolore e rotaciona ao redor do avo do novoNodo
                     novoNodo.parent.color = NodoRubroNegro.BLACK;
                     novoNodo.parent.parent.color = NodoRubroNegro.RED;
                     rightRotate(novoNodo.parent.parent);
                 }
             }
 
-            // If z's parent is the right child of it's parent.
+            // se o pai do novoNodo for um filho da direita
             else {
 
-                // Initialize y to z's cousin
+                // y é o primo do novoNodo
                 y = novoNodo.parent.parent.left;
 
-                // Case 1: if y is red...recolor
+                // Caso 1: se y for vermelho, recolore
                 if (y.color == NodoRubroNegro.RED) {
                     novoNodo.parent.color = NodoRubroNegro.BLACK;
                     y.color = NodoRubroNegro.BLACK;
@@ -313,25 +310,26 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
                     novoNodo = novoNodo.parent.parent;
                 }
 
-                // Case 2: if y is black and z is a left child
+                // Caso 2: se y for negro e novonodo um filho da esquerda
                 else if (novoNodo == novoNodo.parent.left) {
-                    // rightRotate around z's parent
+                    // rightRotate ao redor do pai do novoNodo
                     novoNodo = novoNodo.parent;
                     rightRotate(novoNodo);
                 }
-                // Case 3: if y  is black and z is a right child
+
+                // Caso 3: se y é negro e novonodo um filho da direita
                 else {
-                    // recolor and rotate around z's grandpa
+                    // recolore e rotaciona ao redor do avô do novoNodo
                     novoNodo.parent.color = NodoRubroNegro.BLACK;
                     novoNodo.parent.parent.color = NodoRubroNegro.RED;
                     leftRotate(novoNodo.parent.parent);
                 }
             }
         }
-        // Color root black at all times
+
         root.color = NodoRubroNegro.BLACK;
 
-    }// end insertFixup(RedBlackNode z)
+    }
 
     // @param: node, a RedBlackNode
     // @param: node, the node with the smallest key rooted at node
