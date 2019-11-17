@@ -416,73 +416,60 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
     }
 
 
-    // @param: y, the RedBlackNode which was actually deleted from the tree
-    // @param: key, the value of the key that used to be in y
+    // @param: y, nodo que foi deletado da ARN
+    // @param: key, valor da key que estava no y originalmente
     private void fixNodeData(NodoRubroNegro<T> x, NodoRubroNegro<T> y) {
 
-        // Initialize two variables which will help us traverse the tree
         NodoRubroNegro<T> current = nil;
         NodoRubroNegro<T> track = nil;
 
-
-        // if x is nil, then we will start updating at y.parent
-        // Set track to y, y.parent's child
+        // se x for nil, vai atualizando y.parent
         if (isNil(x)) {
             current = y.parent;
             track = y;
         }
 
-        // if x is not nil, then we start updating at x.parent
-        // Set track to x, x.parent's child
+        // se x não for nil, vai atualizando x.parent
         else {
             current = x.parent;
             track = x;
         }
 
-        // while we haven't reached the root
+        //enquanto não se chega na raiz
         while (!isNil(current)) {
-            // if the node we deleted has a different key than
-            // the current node
+            // se o nodo deletado tem uma key diferente do atual
             if (y.key != current.key) {
 
-                // if the node we deleted is greater than
-                // current.key then decrement current.numRight
+                // se o nodo deletado é maior que a current.key, atualiza numRight
                 if (y.key.compareTo(current.key) > 0)
                     current.numRight--;
 
-                // if the node we deleted is less than
-                // current.key thendecrement current.numLeft
+                // se o nodo deletado e menor que current.key, atualiza numLeft
                 if (y.key.compareTo(current.key) < 0)
                     current.numLeft--;
             }
 
-            // if the node we deleted has the same key as the
-            // current node we are checking
+            // se o nodo deletado tem a mesma key do current
             else {
-                // the cases where the current node has any nil
-                // children and update appropriately
+                // casos onde o node current tem algum filho nil
                 if (isNil(current.left))
                     current.numLeft--;
                 else if (isNil(current.right))
                     current.numRight--;
 
-                    // the cases where current has two children and
-                    // we must determine whether track is it's left
-                    // or right child and update appropriately
+                // casos onde current tem 2 filhos. Tem que ver se track é o da esquerda ou o da direita
                 else if (track == current.right)
                     current.numRight--;
                 else if (track == current.left)
                     current.numLeft--;
             }
 
-            // update track and current
             track = current;
             current = current.parent;
 
         }
 
     }
-
 
     // @param: x, o filho do nodo deletado pelo remove
     // Restaura as propriedades da ARN que podem ter sido violadas durante o remove
