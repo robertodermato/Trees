@@ -79,11 +79,11 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
         if (isNil(x.parent))
             root = y;
 
-        // x é o filho da esquerda
+            // x é o filho da esquerda
         else if (x.parent.left == x)
             x.parent.left = y;
 
-        // x é o filho da direita
+            // x é o filho da direita
         else
             x.parent.right = y;
 
@@ -150,11 +150,11 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
         if (isNil(y.parent))
             root = x;
 
-        // y é o filho da direita
+            // y é o filho da direita
         else if (y.parent.right == y)
             y.parent.right = x;
 
-        // y é o filho da esquerda
+            // y é o filho da esquerda
         else
             y.parent.left = x;
         x.right = y;
@@ -371,7 +371,7 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
     // Remove's z from the RedBlackTree rooted at root
     public void remove(NodoRubroNegro<T> v) {
 
-        NodoRubroNegro<T> z = search(v.key);
+        NodoRubroNegro<T> z = searchRefNode(v.key);
 
         // Declare variables
         NodoRubroNegro<T> x = nil;
@@ -517,9 +517,7 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
                         w.right.color == NodoRubroNegro.BLACK) {
                     w.color = NodoRubroNegro.RED;
                     x = x.parent;
-                }
-
-                else {
+                } else {
                     // Caso 3, filho da diretia de w é negro
                     if (w.right.color == NodoRubroNegro.BLACK) {
                         w.left.color = NodoRubroNegro.BLACK;
@@ -554,10 +552,7 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
                         w.left.color == NodoRubroNegro.BLACK) {
                     w.color = NodoRubroNegro.RED;
                     x = x.parent;
-                }
-
-
-                else {
+                } else {
                     // Caso 3, filho da esquerda de w é negro
                     if (w.left.color == NodoRubroNegro.BLACK) {
                         w.right.color = NodoRubroNegro.BLACK;
@@ -581,88 +576,65 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
     }
 
 
-    // @param: key, the key whose node we want to search for
-    // @return: returns a node with the key, key, if not found, returns null
-    // Searches for a node with key k and returns the first such node, if no
-    // such node is found returns null
-    public NodoRubroNegro<T> search(T key) {
+    // @param: key, a key de cujo nodo estamos procurando
+    // @return: retorna um nodo com a key. Se não encontrar retorn nulo
+    public NodoRubroNegro<T> searchRefNode(T key) {
 
-        // Initialize a pointer to the root to traverse the tree
+        // Inicializa com a raiz para percorrer toda árvore
         NodoRubroNegro<T> current = root;
 
-        // While we haven't reached the end of the tree
         while (!isNil(current)) {
 
-            // If we have found a node with a key equal to key
             if (current.key.equals(key))
-
-                // return that node and exit search(int)
                 return current;
 
-                // go left or right based on value of current and key
             else if (current.key.compareTo(key) < 0)
                 current = current.right;
 
-                // go left or right based on value of current and key
             else
                 current = current.left;
         }
 
-        // we have not found a node whose key is "key"
         return null;
+    }
 
-
-    }// end search(int key)
-
-    // @param: key, any Comparable object
-    // @return: return's the number of elements greater than key
+    // @param: key, qualquer objeto com Comparable
+    // @return: retorna o número de elementos maiores que key
     public int numGreater(T key) {
-
-        // Call findNumGreater(root, key) which will return the number
-        // of nodes whose key is greater than key
         return findNumGreater(root, key);
+    }
 
-    }// end numGreater(int key)
-
-
-    // @param: key, any Comparable object
-    // @return: return's teh number of elements smaller than key
+    // @param: key, qualquer objeto com Comparable
+    // @return: retorna o número de elementos menores que key
     public int numSmaller(T key) {
-
-        // Call findNumSmaller(root,key) which will return
-        // the number of nodes whose key is greater than key
         return findNumSmaller(root, key);
+    }
 
-    }// end numSmaller(int key)
-
-
-    // @param: node, the root of the tree, the key who we must
-    // compare other node key's to.
-    // @return: the number of nodes greater than key.
+    // @param node, a raiz da árvore
+    // @param key, a key que desejamos comparar
+    // @return: retorna o número de nodos maiores que key
     public int findNumGreater(NodoRubroNegro<T> node, T key) {
 
-        // Base Case: if node is nil, return 0
         if (isNil(node))
             return 0;
-            // If key is less than node.key, all elements right of node are
-            // greater than key, add this to our total and look to the left
+
+            // se a key for menor que a node.key, então todos elementos da direita são maiores
+            // adiciona esses elementos e procura na esquerda
         else if (key.compareTo(node.key) < 0)
             return 1 + node.numRight + findNumGreater(node.left, key);
 
-            // If key is greater than node.key, then look to the right as
-            // all elements to the left of node are smaller than key
+            // se a key for maior que node.key, então procura na direita
         else
             return findNumGreater(node.right, key);
 
-    }// end findNumGreater(RedBlackNode, int key)
+    }
 
     /**
-     * Returns sorted list of keys greater than key.  Size of list
-     * will not exceed maxReturned
+     * retorna uma lista organizada de keys maiores que key. Tamanho da lista não será maior que maxReturned
      *
-     * @param key         Key to search for
-     * @param maxReturned Maximum number of results to return
-     * @return List of keys greater than key.  List may not exceed maxReturned
+     * @param key         Key a ser procurada
+     * @param maxReturned número máximo de resultados
+     * @return retorna a lista com keys maiores que key
      */
     public List<T> getGreaterThan(T key, Integer maxReturned) {
         List<T> list = new ArrayList<T>();
@@ -684,50 +656,39 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
         }
     }
 
-    // @param: node, the root of the tree, the key who we must compare other
-    // node key's to.
-    // @return: the number of nodes smaller than key.
+    // @param: node, a raiz da árvore
+    // @param key, key a ser comparada
+    // @return: retorna o número de nodos menores que key
     public int findNumSmaller(NodoRubroNegro<T> node, T key) {
 
-        // Base Case: if node is nil, return 0
         if (isNil(node)) return 0;
 
-            // If key is less than node.key, look to the left as all
-            // elements on the right of node are greater than key
         else if (key.compareTo(node.key) <= 0)
             return findNumSmaller(node.left, key);
 
-            // If key is larger than node.key, all elements to the left of
-            // node are smaller than key, add this to our total and look
-            // to the right.
+            // se key for maior que node.key, todos os elementos a esquerda são menores e são adicionados
+            // daí procura na direirta
         else
             return 1 + node.numLeft + findNumSmaller(node.right, key);
 
-    }// end findNumSmaller(RedBlackNode nod, int key)
+    }
 
-
-    // @param: node, the RedBlackNode we must check to see whether it's nil
-    // @return: return's true of node is nil and false otherwise
+    // @param: node, nodo a ser checado se é nil
+    // @return: retorna true se for nil, caso contrário retorna false
     private boolean isNil(NodoRubroNegro node) {
-
-        // return appropriate value
         return node == nil;
-
-    }// end isNil(RedBlackNode node)
-
+    }
 
     // @return: retorna o tamanho da árvore
     public int size() {
 
-        // Return the number of nodes to the root's left + the number of
-        // nodes on the root's right + the root itself.
+        // soma os elementos da esquerda e os da direita, mais a raiz
         return root.numLeft + root.numRight + 1;
     }
 
-
     // @return: retorna true se a árvore está vazia, ou seja se size() é zero, caso contrário retorna false
-    public boolean isEmpty(){
-        return size()==0;
+    public boolean isEmpty() {
+        return size() == 0;
     }
 
     /**
@@ -743,38 +704,10 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
     }
 
     private void positionsCentralAux(LinkedList lista, NodoRubroNegro nodo) {
-        if (nodo != null && nodo.key!=null) {
+        if (nodo != null && nodo.key != null) {
             positionsCentralAux(lista, nodo.left);
             lista.add(nodo.key);
             positionsCentralAux(lista, nodo.right);
         }
     }
-
-
-
-}// end class RedBlackTree
-
-
-/*
-Design Decisions:
------------------
-I chose the object RedBlackNode class to have seven instance variables which are
-all declared public as per the assignment specifications.  Each instance of a
-RedBlackNode holds a Comparable "key", which is the key of the RedBlackNode.  It
-also holds another integer "color" which is assigned "0" for BLACK and "1" for
-RED.  The integer variable "numSmaller" holds the elements to the left of a
-given node and "numGreater" holds the elements to the right of a given node, not
-inluding the node itself.
-Each instance also holds a RedBlackNode pointer to the node's "parent", "left"
-child and "right" child.  These values are assigned to nil when a node is
-instantiated.
-The constructor that takes in a Comparable argument assigns that value to the key
-of the node. The empty constructor is there to test Prof. Pitt's test case and
-also in case we want to just create a RedBlackNode and initialize its key later.
-I have chosen to use the sentinel as it is an easier and more
-efficient way to implement Red Black Trees.  The sentinel (nil) is declared
-in the RedBlackTree class as it is most referenced there, in this class
-we initialize the left/right/parent pointers with a static reference to nil.
-*/
-
-// inclusions
+}
