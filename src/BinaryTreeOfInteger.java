@@ -563,4 +563,20 @@ public class BinaryTreeOfInteger {
         return count;
     }
 
+    public double calculaMedia(){
+        if (isEmpty()) return 0;
+        return calculaMediaAux(root)*1.0/size();
+    }
+
+    private double calculaMediaAux(Node nodo) {
+        double soma = 0;
+        if (nodo==null) return 0;
+
+        soma = soma + nodo.element;
+        if (nodo.left!=null) soma = soma + calculaMediaAux(nodo.left);
+        if (nodo.right!=null) soma = soma + calculaMediaAux(nodo.right);
+
+        return soma;
+    }
+
 }

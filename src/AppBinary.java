@@ -47,5 +47,14 @@ public class AppBinary {
             System.out.println(arv.isInternal(12));
 
 
+            BinaryTreeOfInteger arv2 = new BinaryTreeOfInteger();
+            arv2.addRoot(10);
+            arv2.addLeft(5, 10);
+            arv2.addRight(15, 10);
+            arv2.addLeft(3,5);
+            arv2.addRight(7,5);
+
+            System.out.println(arv2.calculaMedia());
+
         }
 }
