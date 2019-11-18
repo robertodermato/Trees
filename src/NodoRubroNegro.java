@@ -1,15 +1,15 @@
-public class NodoRubroNegro<T extends Comparable<T>> {
+public class NodoRubroNegro<E extends Comparable<E>> {
 
     // cores possiveis
     public static final int BLACK = 0;
     public static final int RED = 1;
 
     // a chave para cada nodo
-    public T key;
+    public E key;
 
-    NodoRubroNegro<T> parent;
-    NodoRubroNegro<T> left;
-    NodoRubroNegro<T> right;
+    NodoRubroNegro<E> parent;
+    NodoRubroNegro<E> left;
+    NodoRubroNegro<E> right;
 
     // número de elementos à esquerda de cada nodo
     public int numLeft = 0;
@@ -29,7 +29,7 @@ public class NodoRubroNegro<T extends Comparable<T>> {
     }
 
     //construtor para colocar os objetos
-    NodoRubroNegro(T key) {
+    NodoRubroNegro(E key) {
         this();
         this.key = key;
     }
