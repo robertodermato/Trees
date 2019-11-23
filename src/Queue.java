@@ -1,4 +1,3 @@
-
 public class Queue<E> {
 
     private class Node <T> {
@@ -65,7 +64,10 @@ public class Queue<E> {
     public String toString(){
         String fila = "";
 
-        for (int i=0; i<=count+7; i++){
+        int loop = count;
+
+        for (int i=0; i<loop; i++){
+
             fila = fila + dequeue() + " ";
         }
 

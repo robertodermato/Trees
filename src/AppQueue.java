@@ -2,8 +2,8 @@ public class AppQueue {
 
     public static void main(String[] args) {
 
-        Queue<Integer> q1 = new Queue<>();
-        Queue<Integer> q2 = new Queue<>();
+        LinkedQueue q1 = new LinkedQueue();
+        LinkedQueue q2 = new LinkedQueue();
 
         q1.enqueue(1);
         q1.enqueue(2);
@@ -15,17 +15,17 @@ public class AppQueue {
         q2.enqueue(7);
         q2.enqueue(8);
 
-        Queue q = merge (q1, q2);
+        LinkedQueue q = merge (q1, q2);
 
 
         System.out.println(q);
-        System.out.println(q1)
+        System.out.println(q1);
         System.out.println(q2);;
 
     }
 
-    public static Queue<Integer> merge (Queue<Integer> fila1, Queue<Integer> fila2){
-        Queue<Integer> novaFila = new Queue<>();
+    public static LinkedQueue merge (LinkedQueue fila1, LinkedQueue fila2){
+        LinkedQueue novaFila = new LinkedQueue();
 
         int loop = fila1.size();
         if (fila2.size()<fila1.size()) loop=fila2.size();
