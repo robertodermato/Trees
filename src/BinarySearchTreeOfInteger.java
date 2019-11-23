@@ -636,6 +636,16 @@ public class BinarySearchTreeOfInteger {
         return leafcount + leftleafcount + rightleafcount;
     }
 
+    public int countLeaves3(){
+        return countLeaves3(root);
+    }
+
+    private int countLeaves3(Node n){
+        if (n==null) return 0;
+        if (n.left==null && n.right==null) return 1;
+        return countLeaves3(n.left) + countLeaves3(n.right);
+    }
+
     public LinkedListOfInteger encontraPares(){
         if (isEmpty()) return null;
         LinkedListOfInteger lista = new LinkedListOfInteger();
