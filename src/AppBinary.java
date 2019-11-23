@@ -29,6 +29,7 @@ public class AppBinary {
             System.out.println(arv.positionsCentral());
             System.out.println("Position Central Str");
             System.out.println(arv.strPositionsCentral());
+            System.out.println(arv.strPositionsCentral2());
             System.out.println("Position Width");
             System.out.println(arv.positionsWidth());
 
@@ -55,6 +56,7 @@ public class AppBinary {
             arv2.addRight(7,5);
 
             System.out.println(arv2.calculaMedia());
+            System.out.println(arv2.calculaMedia2());
 
         }
 }

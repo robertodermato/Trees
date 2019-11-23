@@ -532,7 +532,9 @@ public class BinarySearchTreeOfInteger {
 
     private String strTraversalPre(Node n) {
         String res = "";
-        // Implemente este metodo
+        res = res + n.element + " ";
+        if (n.left!=null) res = res + strTraversalPre(n.left);
+        if (n.right!=null) res = res  + strTraversalPre(n.right);
         return res;
     }
 

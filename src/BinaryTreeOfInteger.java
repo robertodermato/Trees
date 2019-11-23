@@ -579,4 +579,19 @@ public class BinaryTreeOfInteger {
         return soma;
     }
 
+    public Double calculaMedia2(){
+        Double soma=0.0;
+        soma = calculaMediaAux2(root, soma);
+        return soma*1.0/size();
+    }
+
+    private Double calculaMediaAux2(Node n, Double soma){
+        soma = soma + n.element;
+        if (n.left!=null) soma = calculaMediaAux2(n.left, soma);
+        if (n.right!=null) soma = calculaMediaAux2(n.right, soma);
+        return soma;
+    }
+
+
+
 }
