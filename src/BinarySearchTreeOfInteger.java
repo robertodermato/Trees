@@ -634,4 +634,17 @@ public class BinarySearchTreeOfInteger {
         return leafcount + leftleafcount + rightleafcount;
     }
 
+    public LinkedListOfInteger encontraPares(){
+        if (isEmpty()) return null;
+        LinkedListOfInteger lista = new LinkedListOfInteger();
+        encontraParesAux(root, lista);
+        return lista;
+    }
+
+    public LinkedListOfInteger encontraParesAux(Node n, LinkedListOfInteger lista){
+        if (n.element%2==0) lista.add(n.element);
+        if (n.left!=null) encontraParesAux(n.left, lista);
+        if (n.right!=null) encontraParesAux(n.right, lista);
+        return lista;
+    }
 }

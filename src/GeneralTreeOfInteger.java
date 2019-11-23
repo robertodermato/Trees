@@ -70,6 +70,10 @@ public class GeneralTreeOfInteger {
         return aux;
     }
 
+    public boolean isEmpty(){
+        return count==0;
+    }
+
     public boolean add(Integer elem, Integer father) {
         Node n = new Node(elem);
 
@@ -204,5 +208,22 @@ public class GeneralTreeOfInteger {
     //isInternal
 
     //isExternal
+
+    public LinkedListOfInteger encontraPares(){
+        if (isEmpty()) return null;
+        LinkedListOfInteger lista = new LinkedListOfInteger();
+        encontraParesAux(root, lista);
+        return lista;
+    }
+
+    public LinkedListOfInteger encontraParesAux(Node n, LinkedListOfInteger lista){
+        if (n.element%2==0) lista.add(n.element);
+        for (int i=0; i<n.getSubtreesSize();i++){
+            encontraParesAux(n.getSubtree(i), lista);
+        }
+
+        return lista;
+    }
+
 
 }

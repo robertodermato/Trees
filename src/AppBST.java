@@ -47,5 +47,7 @@ public class AppBST {
 
         System.out.println(nova.positionsCentral().toString());
 
+        System.out.println(b.encontraPares());
+
     }
 }

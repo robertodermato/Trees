@@ -27,5 +27,7 @@ public class AppGeneral {
 
             System.out.println(arv.contaNodos(1));
             System.out.println(arv.contaNodos(2));
+
+            System.out.println("Pares: " + arv.encontraPares());
         }
 }
