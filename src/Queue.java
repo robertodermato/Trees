@@ -61,4 +61,14 @@ public class Queue<E> {
         tail = null;
         count = 0;
     }
+
+    public String toString(){
+        String fila = "";
+
+        for (int i=0; i<=count+7; i++){
+            fila = fila + dequeue() + " ";
+        }
+
+        return fila;
+    }
 }
