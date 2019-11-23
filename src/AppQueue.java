@@ -37,7 +37,7 @@ public class AppQueue {
         q4.enqueue(7);
         q4.enqueue(8);
 
-        LinkedQueue q5 = merge(q1, q2);
+        Queue<Integer> q5 = merge(q3, q4);
 
         System.out.println("Merged Linked Queue: " + q5);
         System.out.println("Original q3: " + q3);
@@ -94,32 +94,26 @@ public class AppQueue {
         for (int i = 0; i < loop; i++) {
 
             a = fila1.dequeue();
-            System.out.println("a " + a);
             novaFila.enqueue(a);
             fila1.enqueue(a);
 
             b = fila2.dequeue();
-            System.out.println("b " + b);
             novaFila.enqueue(b);
             fila2.enqueue(b);
 
         }
 
         int loop2 = Math.abs(fila1.size() - fila2.size());
-        System.out.println(loop2);
-
 
         if (fila1.size() > fila2.size()) {
             for (int m = 0; m < loop2; m++) {
                 c = fila1.dequeue();
-                System.out.println("c " + c);
                 novaFila.enqueue(c);
                 fila1.enqueue(c);
             }
         } else {
             for (int m = 0; m < loop2; m++) {
                 c = fila2.dequeue();
-                System.out.println(" c " + c);
                 novaFila.enqueue(c);
                 fila2.enqueue(c);
             }
