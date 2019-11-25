@@ -58,5 +58,14 @@ public class AppBinary {
             System.out.println(arv2.calculaMedia());
             System.out.println(arv2.calculaMedia2());
 
+            BinaryTreeOfInteger arv3 = new BinaryTreeOfInteger();
+            arv3.addRoot(10);
+            arv3.addLeft(5, 10);
+            arv3.addRight(15, 10);
+            arv3.addLeft(3,5);
+            arv3.addRight(7,5);
+
+            System.out.println("Arv2 e arv3 são iguais? " + arv2.equals(arv3));
+
         }
 }
