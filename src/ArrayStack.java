@@ -49,4 +49,41 @@ public class ArrayStack {
         topo = 0;
     }
 
+    public String toString(){
+        ArrayStack temp = new ArrayStack();
+        String stack = "[";
+
+        while (!isEmpty()){
+            int a = pop();
+            stack = stack + a + ", ";
+            temp.push(a);
+        }
+
+        while (!temp.isEmpty()){
+            push(temp.pop());
+        }
+
+        return stack;
+    }
+
+    //escreva um algoritmo para o método "Stack reverse (Stack s)".
+    // Este algoritmo recebe uma pilha de inteiros (Stack) por parâmetro
+    // e retorna uma nova pilha com o conteúdo da pilha recebida por parâmetro invertido.
+    // Considere que ao final da execução do método a pilha passada por parâmetro não deve estar alterada.
+    public ArrayStack reverse (){
+        ArrayStack c = new ArrayStack();
+        ArrayStack revertida = new ArrayStack();
+
+        while (!isEmpty()) {
+            int a = pop();
+            c.push(a);
+            revertida.push(a);
+        }
+
+        while(!c.isEmpty()){
+            push(c.pop());
+        }
+
+        return revertida;
+    }
 }

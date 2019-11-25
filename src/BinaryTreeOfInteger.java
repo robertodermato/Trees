@@ -563,49 +563,68 @@ public class BinaryTreeOfInteger {
         return count;
     }
 
-    public double calculaMedia(){
+    public double calculaMedia() {
         if (isEmpty()) return 0;
-        return calculaMediaAux(root)*1.0/size();
+        return calculaMediaAux(root) * 1.0 / size();
     }
 
     private double calculaMediaAux(Node nodo) {
         double soma = 0;
-        if (nodo==null) return 0;
+        if (nodo == null) return 0;
 
         soma = soma + nodo.element;
-        if (nodo.left!=null) soma = soma + calculaMediaAux(nodo.left);
-        if (nodo.right!=null) soma = soma + calculaMediaAux(nodo.right);
+        if (nodo.left != null) soma = soma + calculaMediaAux(nodo.left);
+        if (nodo.right != null) soma = soma + calculaMediaAux(nodo.right);
 
         return soma;
     }
 
-    public Double calculaMedia2(){
-        Double soma=0.0;
+    public Double calculaMedia2() {
+        Double soma = 0.0;
         soma = calculaMediaAux2(root, soma);
-        return soma*1.0/size();
+        return soma * 1.0 / size();
     }
 
-    private Double calculaMediaAux2(Node n, Double soma){
+    private Double calculaMediaAux2(Node n, Double soma) {
         soma = soma + n.element;
-        if (n.left!=null) soma = calculaMediaAux2(n.left, soma);
-        if (n.right!=null) soma = calculaMediaAux2(n.right, soma);
+        if (n.left != null) soma = calculaMediaAux2(n.left, soma);
+        if (n.right != null) soma = calculaMediaAux2(n.right, soma);
         return soma;
     }
 
-    public boolean equals (BinaryTreeOfInteger b){
-        if (size()!=b.count) return false;
+    //Escreva o algoritmo de um método boolean equals(Binary TreeOflnteger b)
+    //para a classe Binary TreeOfInteger estudada em aula e apresentada abaixo.
+    // Este algoritmo deve comparar o conteúdo da árvore com o conteúdo da árvore passada por parâmetro.
+    // Se ambas tiverem exatamente o mesmo conteúdo (mesmos elementos nas mesmas posições).
+    // o método retorna true, senão, retorna false.
+    // Use apenas os atributos da classe BinaryTreeOfInteger na sua solução, isto é, nenhum outro método desta classe pode ser chamado.
+    public boolean equals(BinaryTreeOfInteger b) {
+        if (size() != b.count) return false;
         return equalsAux(b.root, root);
     }
 
-    private boolean equalsAux (Node a, Node b){
-        if (a.left!=null && b.left==null) return false;
-        if (a.left==null && b.left!=null) return false;
-        if (a.right!=null && b.right==null) return false;
-        if (a.right==null && b.right!=null) return false;
-        if (a.element!=b.element) return false;
-        if (a.left==null && b.left==null) return true;
+    private boolean equalsAux(Node a, Node b) {
+        if (a.left != null && b.left == null) return false;
+        if (a.left == null && b.left != null) return false;
+        if (a.right != null && b.right == null) return false;
+        if (a.right == null && b.right != null) return false;
+        if (a.element != b.element) return false;
+        if (a.left == null && b.left == null) return true;
         return equalsAux(a.left, b.left) && equalsAux(a.right, b.right);
+    }
 
+    //Escreva um método boolean isSorted() Este método verifica se o conteúdo desta lista
+    // está ordenado em ordem crescente ou não. Se estiver ordenado é retornado true.
+    // Caso contrário, é retornado false. Não podem ser chamados outros métodos desta classe. (2.0 pontos)
+    public boolean isSorted() {
+        return isSortedAux(root);
+    }
+
+    private boolean isSortedAux(Node n) {
+        if (n.left != null) return isSortedAux(n.left);
+        if (true) return true;
+        if (n.right != null) return isSortedAux(n.right);
+        return true;
     }
 
 }
