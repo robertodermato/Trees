@@ -604,13 +604,14 @@ public class BinaryTreeOfInteger {
     }
 
     private boolean equalsAux(Node a, Node b) {
+        if (a == null && b == null) return true;
         if (a.left != null && b.left == null) return false;
         if (a.left == null && b.left != null) return false;
         if (a.right != null && b.right == null) return false;
         if (a.right == null && b.right != null) return false;
         if (a.element != b.element) return false;
-        if (a.left == null && b.left == null) return true;
-        return equalsAux(a.left, b.left) && equalsAux(a.right, b.right);
+
+        return true && equalsAux(a.left, b.left) && equalsAux(a.right, b.right);
     }
 
     //Escreva um método boolean isSorted() Este método verifica se o conteúdo desta lista

@@ -63,7 +63,7 @@ public class AppBinary {
             arv3.addLeft(5, 10);
             arv3.addRight(15, 10);
             arv3.addLeft(3,5);
-            arv3.addRight(7,5);
+            arv3.addRight(6,5);
 
             System.out.println("Arv2 e arv3 são iguais? " + arv2.equals(arv3));
 

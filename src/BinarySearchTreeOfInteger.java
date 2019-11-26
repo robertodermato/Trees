@@ -179,8 +179,8 @@ public class BinarySearchTreeOfInteger {
     private Node smallest2(Node n) { //meu
         if (isEmpty() || n == null) return null;
 
-        while (n.right != null) {
-            n = n.right;
+        while (n.left != null) {
+            n = n.left;
         }
 
         return n;
