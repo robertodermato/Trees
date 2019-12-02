@@ -701,11 +701,6 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
         return node == nil;
     }
 
-    // @return: retorna true se a árvore está vazia, ou seja se size() é zero, caso contrário retorna false
-    public boolean isEmpty() {
-        return size() == 0;
-    }
-
     /**
      * Retorna uma lista com todos os elementos da arvore na ordem de
      * caminhamento central. Deve chamar um metodo auxiliar recursivo.
@@ -790,7 +785,7 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
 
     // @return: o número de elementos da árvore
     // Verifica quantos elementos tem na árvore
-    // Notação O (n)
+    // Notação O (1)
     // @return: retorna o tamanho da árvore
     public int size() {
 
@@ -798,18 +793,36 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
         return root.numLeft + root.numRight + 1;
     }
 
-/*
-    // @param:
-    // @return: retorna
-    // Retornar
-    // Notação O ()
-• Verificar se a árvore está vazia ou não: boolean isEmpty();
+    // @return: retorna true se a árvore está vazia, ou seja se size() é zero, caso contrário retorna false
+    // Verifica se a árvore está vazia ou não
+    // Notação O (1)
+    public boolean isEmpty() {
+        return size() == 0;
+    }
 
-    // @param:
-    // @return: retorna
-    // Retornar
-    // Notação O ()
-• Retornar uma cópia da árvore: Tree clone();
+     /**
+     * Retorna uma cópia da árvore.
+     *
+     * @return ArvoreRubroNegra com uma cópia desta árvore.
+     */
+     // Notação O ()
+    @Override
+    public ArvoreRubroNegra clone() {
+        ArvoreRubroNegra clone = new ArvoreRubroNegra();
+        cloneAux(root, clone);
+        return clone;
+    }
+
+    private void cloneAux(NodoRubroNegro n, ArvoreRubroNegra clone) {
+        if (n != null) {
+            clone.add(n.key);
+            cloneAux(n.left, clone);
+            cloneAux(n.right, clone);
+        }
+
+    }
+
+    /*
 • Retornar os elementos da árvore em uma lista usando diferentes caminhamentos (métodos
   *   positionsPre, positionsCentral, positionsPos e positionsWidth)
 */
