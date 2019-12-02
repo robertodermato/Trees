@@ -701,13 +701,6 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
         return node == nil;
     }
 
-    // @return: retorna o tamanho da árvore
-    public int size() {
-
-        // soma os elementos da esquerda e os da direita, mais a raiz
-        return root.numLeft + root.numRight + 1;
-    }
-
     // @return: retorna true se a árvore está vazia, ou seja se size() é zero, caso contrário retorna false
     public boolean isEmpty() {
         return size() == 0;
@@ -762,23 +755,50 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
     // Retornar
     // Notação O ()
     // A partir de um atributo, procurar se o objeto está armazenado na árvore (se não estiver, retorna null):
-    public T get(MagicCard atrib){
-
+    public T get(T objeto){
+        if (objeto == null) return null;
+        if (isEmpty()) return null;
+        NodoRubroNegro<T> nodo = searchRefNode(objeto);
+        if (nodo == null) return null;
+        T objetoNodo = nodo.key;
+        return objetoNodo;
     }
 
-    /*
-    // @param:
-    // @return: retorna
-    // Retornar
-    // Notação O ()
-• Verificar qual é a altura da árvore: int height();
+    // @return: altura da árvore
+    // Verifica qual é a altura da árvore
+    // Notação O (n)
+    public int height() {
+        if (isEmpty()) return -1;
+        return heightAux(root);
+    }
 
-    // @param:
-    // @return: retorna
-    // Retornar
-    // Notação O ()
-• Verificar quantos elementos tem na árvore: int size();
+    public int heightAux(NodoRubroNegro target) {
+        int height = 0;
+        int heightLeft = 0;
+        int heightRight = 0;
 
+        if (target.left == null && target.right == null) return 1;
+
+        if (target.left != null) heightLeft = height + heightAux(target.left);
+        if (target.right != null) heightRight = height + heightAux(target.right);
+
+        if (heightLeft > heightRight) height = 1 + heightLeft;
+        else height = 1 + heightRight;
+
+        return height;
+    }
+
+    // @return: o número de elementos da árvore
+    // Verifica quantos elementos tem na árvore
+    // Notação O (n)
+    // @return: retorna o tamanho da árvore
+    public int size() {
+
+        // soma os elementos da esquerda e os da direita, mais a raiz
+        return root.numLeft + root.numRight + 1;
+    }
+
+/*
     // @param:
     // @return: retorna
     // Retornar
