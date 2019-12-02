@@ -41,9 +41,9 @@ These values are assigned to the 'color' variable.
 */
 
 /*
-* Ávore rubro-negra baseada na árvore de Zarar Siddiqi (Arsenalist)
-* disponível em: https://github.com/Arsenalist/Red-Black-Tree-Java-Implementation/blob/master/src/RedBlackTree.java
-*/
+ * Ávore rubro-negra baseada na árvore de Zarar Siddiqi (Arsenalist)
+ * disponível em: https://github.com/Arsenalist/Red-Black-Tree-Java-Implementation/blob/master/src/RedBlackTree.java
+ */
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -242,7 +242,9 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
 
     }
 
-
+    // @param: novoNodo, objeto a ser inserido
+    // Adiciona elementos na árvore
+    // Notação O (log n)
     public void add(T novoNodo) {
         add(new NodoRubroNegro<T>(novoNodo));
     }
@@ -415,7 +417,7 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
         if (isNil(z.left) || isNil(z.right))
             y = z;
 
-        // senão removeremos o sucessor de z
+            // senão removeremos o sucessor de z
         else y = treeSuccessor(z);
 
         // x será o filho da esquerda ou da direita de y (y só pode ter um filho, já que é o menor dessa subárvore)
@@ -431,11 +433,11 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
         if (isNil(y.parent))
             root = x;
 
-        // se y é um filho da esquerda, deixa x no seu lugar
+            // se y é um filho da esquerda, deixa x no seu lugar
         else if (!isNil(y.parent.left) && y.parent.left == y)
             y.parent.left = x;
 
-        // senão, se y é um filho da direita, deixa x no seu lugar
+            // senão, se y é um filho da direita, deixa x no seu lugar
         else if (!isNil(y.parent.right) && y.parent.right == y)
             y.parent.right = x;
 
@@ -494,7 +496,7 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
                 else if (isNil(current.right))
                     current.numRight--;
 
-                // casos onde current tem 2 filhos. Tem que ver se track é o da esquerda ou o da direita
+                    // casos onde current tem 2 filhos. Tem que ver se track é o da esquerda ou o da direita
                 else if (track == current.right)
                     current.numRight--;
                 else if (track == current.left)
@@ -597,6 +599,7 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
 
     // @param: key, a key de cujo nodo estamos procurando
     // @return: retorna um nodo com a key. Se não encontrar retorn nulo
+    // notação O(log n)
     public NodoRubroNegro<T> searchRefNode(T key) {
 
         // Inicializa com a raiz para percorrer toda árvore
@@ -729,4 +732,65 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
             positionsCentralAux(lista, nodo.right);
         }
     }
+
+    // @param: objeto, objeto cujo pai queremos encontrar
+    // @return: retorna o objeto contigo no nodo pai do objeto fornecido
+    // Retornar o pai de um elemento: obj getParent(obj)
+    // Notação O (log n), pois usa o searchRefNode
+    public T getParent(T objeto) {
+        if (objeto == null) return null;
+        if (isEmpty()) return null;
+        NodoRubroNegro<T> filho = searchRefNode(objeto);
+        if (filho == null) return null;
+        NodoRubroNegro<T> pai = filho.parent;
+        if (pai == null) return null; //se o filho for a root
+        T objetoPai = pai.key;
+        return objetoPai;
+    }
+
+    // @param: objeto, objeto que queremos saber se existe ou não na árvore
+    // @return: retorna true se o objeto existir, em caso contrário, retorna false
+    // Notação O (log n), pois usa o searchRefNode
+    // Verifica se um elemento está armazenado na árvore ou não
+    public boolean contains(T objeto) {
+        NodoRubroNegro<T> nAux = searchRefNode(objeto);
+        return (nAux != null);
+    }
+
+    // @param:
+    // @return: retorna
+    // Retornar
+    // Notação O ()
+    // A partir de um atributo, procurar se o objeto está armazenado na árvore (se não estiver, retorna null):
+    public T get(MagicCard atrib){
+
+    }
+
+    /*
+    // @param:
+    // @return: retorna
+    // Retornar
+    // Notação O ()
+• Verificar qual é a altura da árvore: int height();
+
+    // @param:
+    // @return: retorna
+    // Retornar
+    // Notação O ()
+• Verificar quantos elementos tem na árvore: int size();
+
+    // @param:
+    // @return: retorna
+    // Retornar
+    // Notação O ()
+• Verificar se a árvore está vazia ou não: boolean isEmpty();
+
+    // @param:
+    // @return: retorna
+    // Retornar
+    // Notação O ()
+• Retornar uma cópia da árvore: Tree clone();
+• Retornar os elementos da árvore em uma lista usando diferentes caminhamentos (métodos
+  *   positionsPre, positionsCentral, positionsPos e positionsWidth)
+*/
 }
