@@ -701,26 +701,6 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
         return node == nil;
     }
 
-    /**
-     * Retorna uma lista com todos os elementos da arvore na ordem de
-     * caminhamento central. Deve chamar um metodo auxiliar recursivo.
-     *
-     * @return LinkedListOfInteger lista com os elementos da arvore
-     */
-    public LinkedList positionsCentral() {
-        LinkedList lista = new LinkedList();
-        if (isEmpty() == false) positionsCentralAux(lista, root);
-        return lista;
-    }
-
-    private void positionsCentralAux(LinkedList lista, NodoRubroNegro nodo) {
-        if (nodo != null && nodo.key != null) {
-            positionsCentralAux(lista, nodo.left);
-            lista.add(nodo.key);
-            positionsCentralAux(lista, nodo.right);
-        }
-    }
-
     // @param: objeto, objeto cujo pai queremos encontrar
     // @return: retorna o objeto contigo no nodo pai do objeto fornecido
     // Retornar o pai de um elemento: obj getParent(obj)
@@ -805,7 +785,7 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
      *
      * @return ArvoreRubroNegra com uma cópia desta árvore.
      */
-     // Notação O ()
+     // Notação O (n)
     @Override
     public ArvoreRubroNegra clone() {
         ArvoreRubroNegra clone = new ArvoreRubroNegra();
@@ -822,8 +802,87 @@ public class ArvoreRubroNegra<T extends Comparable<T>> {
 
     }
 
-    /*
-• Retornar os elementos da árvore em uma lista usando diferentes caminhamentos (métodos
-  *   positionsPre, positionsCentral, positionsPos e positionsWidth)
-*/
+    /**
+     * Retorna uma lista com todos os elementos da árvore na ordem de
+     * caminhamento central. Chama um método auxiliar recursivo.
+     *
+     * @return LinkedList, lista com os elementos da árvore
+     */
+    public LinkedList positionsCentral() {
+        LinkedList lista = new LinkedList();
+        if (isEmpty() == false) positionsCentralAux(lista, root);
+        return lista;
+    }
+
+    private void positionsCentralAux(LinkedList lista, NodoRubroNegro nodo) {
+        if (nodo != null && nodo.key != null) {
+            positionsCentralAux(lista, nodo.left);
+            lista.add(nodo.key);
+            positionsCentralAux(lista, nodo.right);
+        }
+    }
+
+    /**
+     * Retorna uma lista com todos os elementos da árvore na ordem de
+     * caminhamento pré. Chama um método auxiliar recursivo.
+     *
+     * @return LinkedList, lista com os elementos da árvore
+     */
+    public LinkedList positionsPre() {
+        LinkedList lista = new LinkedList();
+        if (isEmpty() == false) positionsPreAux(lista, root);
+        return lista;
+    }
+
+    private void positionsPreAux(LinkedList lista, NodoRubroNegro nodo) {
+        if (nodo != null && nodo.key != null) {
+            lista.add(nodo.key);
+            positionsCentralAux(lista, nodo.left);
+            positionsCentralAux(lista, nodo.right);
+        }
+    }
+
+    /**
+     * Retorna uma lista com todos os elementos da árvore na ordem de
+     * caminhamento pós. Chama um método auxiliar recursivo.
+     *
+     * @return LinkedList, lista com os elementos da árvore
+     */
+    public LinkedList positionsPos() {
+        LinkedList lista = new LinkedList();
+        if (isEmpty() == false) positionsPosAux(lista, root);
+        return lista;
+    }
+
+    private void positionsPosAux(LinkedList lista, NodoRubroNegro nodo) {
+        if (nodo != null && nodo.key != null) {
+            positionsCentralAux(lista, nodo.left);
+            positionsCentralAux(lista, nodo.right);
+            lista.add(nodo.key);
+        }
+    }
+
+    /**
+     * Retorna uma lista com todos os elementos da árvore na ordem de
+     * caminhamento pós. Chama um método auxiliar recursivo.
+     *
+     * @return LinkedList, lista com os elementos da árvore
+     */
+    public LinkedList positionsWidth() {
+        Queue<NodoRubroNegro> fila = new Queue<>();
+        LinkedList lista = new LinkedList();
+
+        if (isEmpty()) return null;
+
+        fila.enqueue(root);
+
+        while (!fila.isEmpty()) {
+            if (fila.head().left != null) fila.enqueue(fila.head().left);
+            if (fila.head().right != null) fila.enqueue(fila.head().right);
+            lista.add(fila.dequeue().key);
+        }
+
+        return lista;
+    }
+
 }
